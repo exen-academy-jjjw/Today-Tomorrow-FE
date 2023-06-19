@@ -1,0 +1,66 @@
+//메인페이지 배경
+.loginBg {
+    position: relative;
+    max-width: 480px;
+    height: 99vh;
+    margin: auto;
+    border: 1px solid #9BA4B5;
+    background-color: #dfe6ed;
+  
+    //메인페이지 전체 박스
+    .loginBox {
+      margin: 20px;
+      padding: 40px 15px;
+      border-radius: 20px;
+      background-color: #fff;
+
+      h2 {
+        margin-top: 50px;
+        text-align: center;
+      }
+
+      form {
+        display: grid;
+        justify-items: center;
+  
+        :first-child{
+          margin-top: 40px;
+        }
+  
+        input {
+          margin-bottom: 30px;
+          padding: 8px;
+          width: 250px;
+  
+          background-color: #fff;
+          border: 2px solid #dadada;
+          border-radius: 3px;
+        }
+  
+        button {
+          margin-bottom: 15px;
+          padding: 8px;
+          width: 120px;
+  
+          background-color: #fff;
+          border: 2px solid #dadada;
+          border-radius: 3px;
+  
+          cursor: pointer;
+        }
+
+        p {
+          margin: 0;
+          margin-bottom: 15px;
+        }
+      }
+
+      p{
+        a{
+          text-decoration: none;
+          color: #4B89DC;
+          font-weight: bold;
+        }
+      }
+    }
+  }

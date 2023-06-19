@@ -1,0 +1,70 @@
+@import "/src/assets/style.scss";
+
+.pageBox {
+    margin: 20px;
+    padding: 40px 15px;
+    border-radius: $border-radius04;
+    background-color: $PM-white;
+    display: flex;
+    flex-direction: column;
+
+    .pageTop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+        #icon {
+          margin-left: 15px;
+        }
+
+        .updateAndDeleteBtn {
+            margin-right: 15px;
+
+            :first-child {
+                margin-right: 15px;
+            }
+
+            button {
+                border: 2px solid $PM-skyblue;
+                background: $PM-white;
+                border-radius: $border-radius01;
+                cursor: pointer;
+                padding: 5px 5px;
+
+                &:hover {
+                    background: $PM-blue;
+                    color: $PM-white;
+                }
+            }
+        }
+    }
+
+    .titleAndContent {
+        white-space: pre-wrap;
+    }
+
+    .titleAndContent > h3,p {
+        margin-top: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+        border: 1px solid $PM-skyblue;
+        padding: 10px;
+        border-radius: $border-radius01;
+    }
+
+    .reviewCreateBtn {
+        align-self: flex-end;
+        margin-top: 15px;
+        margin-right: 15px;
+        padding: 5px 10px;
+        border: 2px solid $PM-skyblue;
+        background: $PM-white;
+        border-radius: $border-radius01;
+        cursor: pointer;
+
+        &:hover {
+            background: $PM-blue;
+            color: $PM-white;
+        }
+    }
+}

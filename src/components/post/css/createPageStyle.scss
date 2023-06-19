@@ -1,0 +1,68 @@
+@import "/src/assets/style.scss";
+
+.pageBox {
+    margin: 20px;
+    padding: 40px 15px;
+    border-radius: $border-radius04;
+    background-color: $PM-white;
+    display: flex;
+    flex-direction: column;
+
+    .categoryBox  {
+        box-sizing: inherit;
+        text-align: center;
+        
+        select {
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            font-size: 0.9rem;
+            margin-left: 20px;
+        }
+    }
+
+    .createTitleAndContent{
+        margin-top: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+        border: 2px solid $PM-skyblue;
+        padding: 10px;
+        border-radius: $border-radius01;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        hr {
+            border: none;
+            border-top: 1px solid $PM-skyblue;
+            margin: 20px 0;
+        }
+    
+        input,
+        textarea {
+            outline: none;
+        }
+
+        textarea {
+            height: 150px;
+          }
+    }
+    
+    .createPostBtn {
+        justify-self: flex-end;
+        margin-top: 15px;
+        margin-right: 15px;
+        padding: 5px 10px;
+        border: 2px solid $PM-skyblue;
+        background: $PM-white;
+        border-radius: $border-radius01;
+        cursor: pointer;
+        float: right;
+
+        &:hover {
+          background: $PM-blue;
+          color: $PM-white;
+        }
+    }
+
+}

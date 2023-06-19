@@ -1,0 +1,106 @@
+@import "/src/assets/style.scss";
+
+//닉네임 변경 및 비밀번호 변경 모달
+.modalBox{
+  position: absolute;
+  z-index: 3;
+  top:50%;
+  left: 0;
+  background-color: $PM-white;
+  width: 95%;
+  height: 50vh;
+  border-radius: $border-radius04;
+  transform: translate(2.5%,-50%);
+
+  h2{text-align: center; margin: 3rem 0 3.5rem 0;}
+
+  .nicknameInput{
+    width: 90%;
+    height: 3rem;
+    font-size: $font-size-sm2;
+    padding: 10px;
+    margin-left: 5%;
+    margin-top: 3rem;
+    margin-bottom: 3.5rem;
+    text-align: center;
+    border: 2px solid $PM-skyblue;
+  }
+
+  .passwordInput{
+    width: 90%;
+    height: 3rem;
+    font-size: $font-size-sm2;
+    padding: 10px;
+    margin-left: 5%;
+    margin-bottom: 1rem;
+    text-align: center;
+    border: 2px solid $PM-skyblue;
+  }
+
+  .modalBtnBox{
+    margin-top: 2rem;
+    text-align: center;
+
+    .updateBut{
+      cursor: pointer;
+      border: none;
+      border-radius: $border-radius03;
+      width: 30%;
+      height: 5vh;
+      margin-right: 2rem;
+    }
+    .cancelBut{
+      cursor: pointer;
+      border: none;
+      border-radius: $border-radius03;
+      width: 30%;
+      height: 5vh;
+    }
+    button:hover{
+      background-color: $PM-green;
+    }
+  }
+}
+
+
+//회원탈퇴 모달
+.unregisterModalBox{
+  position: absolute;
+  z-index: 3;
+  top:35%;
+  left: 0;
+  background-color: $PM-white;
+  width: 95%;
+  height: 25vh;
+  border-radius: $border-radius04;
+  transform: translate(2.5%,-50%);
+
+  h2{text-align: center; margin: 3rem 0 3.5rem 0;}
+
+  //모달 버튼 박스
+  .modalBtnBox{
+    margin-top: 2rem;
+    text-align: center;
+
+    //회원탈퇴 버튼
+    .unregisterBut{
+      cursor: pointer;
+      border: none;
+      border-radius: $border-radius03;
+      width: 30%;
+      height: 5vh;
+      margin-right: 2rem;
+    }
+    //취소 버튼
+    .cancelBut{
+      cursor: pointer;
+      border: none;
+      border-radius: $border-radius03;
+      width: 30%;
+      height: 5vh;
+    }
+    button:hover{
+      background-color: $PM-green;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+@import "/src/assets/style.scss";
+
+
+.categoryBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    border: 2px solid $PM-skyblue;
+    border-radius: $border-radius02;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 15px 0;
+    background-color: $PM-white;
+    flex-wrap: wrap;
+    gap: 40px;
+
+    .categoryButton {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+
+        #icon {
+            font-size: 1.5rem;
+        }
+      }
+      
+}
+
+.postList {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 1rem;
+    border: 2px solid $PM-skyblue;
+    border-radius: $border-radius02;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 15px 0;
+    background-color: $PM-white;
+    gap: 15px;
+    padding: 15px;
+}
+
+.addBtn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    margin-right: 1.5rem;
+
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+
+    :first-child {
+        border: 2px solid $PM-skyblue;
+        border-radius: $border-radius01;
+        background: $PM-white;
+        cursor: pointer;
+        font-size: $font-size-sm2;
+        padding : 4px;
+
+        :first-child {
+            border: none;
+            font-size: $font-size-sm;
+        }
+    }
+}

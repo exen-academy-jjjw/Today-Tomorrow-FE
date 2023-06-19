@@ -1,0 +1,84 @@
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+
+b, u, i, center,input,textarea,
+
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+ol, ul {
+list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+
+.pageBg{
+    position: relative;
+    max-width: 480px;
+    min-height: 100vh;
+    height: 100%;
+    margin: auto;
+    border: 1px solid #9BA4B5;
+    background-color: #dfe6ed;
+
+    position: relative;
+}
+
+.modalsBg{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+}
+
+// color
+$PM-tone-5:#010101;
+$PM-tone-4:#454545;
+$PM-tone-1:#fbfbfb;
+
+$PM-back-1:#dfe6ed;
+
+$PM-blue: #8eb6f9;
+$PM-skyblue: #D6E4E5;
+$PM-green: #98EECC;
+$PM-gray:#9BA4B5;
+$PM-orange: #ffab45;
+$PM-white:#ffffff;
+$PM-red:#F15A59;
+    
+
+//font
+$font-size-sm: 1rem;
+$font-size-sm2: 1.2rem;
+$font-size-md: 2.5rem;
+$font-size-lg: 3.2rem;
+
+
+// border-radius
+$border-radius01: 5px;
+$border-radius02: 10px;
+$border-radius03: 15px;
+$border-radius04: 20px;
