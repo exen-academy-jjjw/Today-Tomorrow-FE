@@ -3,9 +3,9 @@ import axios from "../axiosInstance.js";
 import { getCookie, removeCookie, setCookie } from "../../components/cookie/cookie";
 
 const initialState = {
-  memberId: "",
-  password: "",
-  nickname: getCookie("nickname") || ""
+  info:{},
+  isLoading: false,
+  error: null,
 };
 
 export const postLogin = createAsyncThunk(
