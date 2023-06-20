@@ -1,0 +1,107 @@
+@import "../../../assets/style.scss";
+
+//페이지 배경
+.pageBg{
+  position: relative;
+  max-width: 480px;
+  height: 99vh;
+  margin: auto;
+  border: 1px solid $PM-gray;
+  background-color: $PM-back-1;
+
+  //페이지 전체 박스
+  .pageBox{
+    margin: 20px;
+    padding: 20px 15px 40px 15px;
+    border-radius: $border-radius04;
+    background-color: $PM-white;
+
+    //카테고리 박스
+    .categoryBox{
+      border: 2px solid #D6E4E5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30%;
+      .categoryTxt{
+        position: relative;
+        display: inline-block;
+        color: $PM-gray;
+        margin: 0;
+      }
+    }
+
+    //게시글 박스
+    .reviewAboutPostBox{
+      margin-top: 1rem;
+      height: 20vh;
+      display: flex; 
+      width: 100%;
+      justify-content: space-between;
+      .fileBox{
+        border: 2px solid $PM-tone-1;
+        display: inherit;
+        // max-height: 100%;
+        width: 100%;
+        // justify-content: center;
+        // align-items: center;
+        overflow-x: scroll;
+        // overflow-y: hidden;
+        // text-align: center;
+        .file{
+          cursor: pointer;  
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 60px;
+          font-size: 0.3rem;
+        }
+        .imgBox{
+          position: relative;
+          .imgBtn{  
+            position: absolute;
+            top: 0;
+            right: 0;
+          }
+        }
+      }
+    }
+
+    //리뷰 작성, 상세보기 박스
+    .reviewCreateBox, .reviewDetailBox{
+      margin-top: 1rem;
+      display: flex;
+      .review{
+        padding: 5px;
+        width: 100%;
+        border: 1px solid $PM-gray;
+      }
+    }
+    //리뷰 박스 크기
+    .reviewCreateBox{height: 30vh;}
+    .reviewDetailBox{height: 10vh;}
+
+    //리뷰 작성 버튼 박스
+    .reviewAddBtnBox{
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      .reviewAddBtn{
+        cursor: pointer;
+        padding: 5px 15px;
+        border: 1px solid $PM-gray;
+        border-radius: $border-radius01;
+        background: $PM-white;
+        font-size: $font-size-sm;
+        color: $PM-gray;
+      }
+      .reviewAddBtn:hover{
+        background: $PM-gray;
+        color: $PM-white;
+      }
+    }
+
+   
+
+  }
+}
