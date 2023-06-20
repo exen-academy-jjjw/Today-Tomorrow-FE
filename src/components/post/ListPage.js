@@ -19,6 +19,7 @@ const ListPage = () => {
     async function fetchData() {
       try {
         const response = await dispatch(fetchPostList());
+        console.log(response.payload);
         const postData = response.payload.map((item) => ({
           ...item,
           completed: item.completion === 1,
@@ -52,7 +53,7 @@ const ListPage = () => {
   const handleCheckboxClick = async (postId) => {
     try {
       const completionValue = data.find((item) => item.postId === postId)?.completed ? 0 : 1;
-      await dispatch(updateCompletion({ postId, completion: completionValue }));
+      const res = await dispatch(updateCompletion({ postId, completion: completionValue }));
       setData((prevData) => {
         return prevData.map((item) => {
           if (item.postId === postId) {
