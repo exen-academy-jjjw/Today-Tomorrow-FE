@@ -89,11 +89,7 @@ const initialState = {
 
   const postSlice = createSlice({
     name: "postInfo",
-    initialState: {
-      title: "",
-      isLoading: false,
-      details: null,
-    },
+    initialState: {},
     reducers: {},
     extraReducers: (builder) => {
       builder
