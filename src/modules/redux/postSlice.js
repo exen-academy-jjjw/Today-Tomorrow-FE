@@ -2,13 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../axiosInstance.js";
 
 const initialState = {
-    category: "",
-    title: "",
-    content: "",
-    completion: "",
-    isLoading: false,
-    details: null,
-  };
+  info:{},
+  isLoading: false,
+  error: null,
+};
 
   export const postCreate = createAsyncThunk(
     "post/create",
