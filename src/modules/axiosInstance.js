@@ -1,7 +1,6 @@
 import axios from "axios";
 import { getCookie, setCookie } from "../components/cookie/cookie";
 
-//test
 // url 호출 시 기본 값 셋팅
 const api = axios.create({
   baseURL: "http://localhost:8080",
