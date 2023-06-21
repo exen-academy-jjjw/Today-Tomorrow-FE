@@ -102,7 +102,7 @@ function ReviewDetail(){
         setData(response.payload.reviewContent);
         setImage(response.payload.fileUrlList);
         console.log("정보1: ", response.payload.reviewContent)
-        console.log("정보2: ", response.payload.fileUrlList[0])
+        console.log("정보2: ", response.payload.fileUrlList)
         // console.log("정보3: ", fileU[0])
 
 
@@ -117,6 +117,7 @@ function ReviewDetail(){
     navigate(`/post/detail/${postId}`);
   };
  
+  // console.log("작성: ",URL.createObjectURL(image) )
   return (
     <>
       <div className="pageBg" >
@@ -128,7 +129,7 @@ function ReviewDetail(){
                 {image.map((img, index) => (
                   <div className="imgBg" key={index}>
                     <div className="imgBox">
-                      <img src={image[0]} alt={`Image ${index}`} style={{ height: "13vh", maxWidth: "10vw",minWidth: "10vw" }} />
+                      <img src={`/upload/${img}`} alt={`Image ${index}`} style={{ height: "13vh", maxWidth: "10vw",minWidth: "10vw" }} />
                     </div>
                   </div>
                 ))} 
@@ -149,5 +150,3 @@ function ReviewDetail(){
 }
 
 export default ReviewDetail;
-
-

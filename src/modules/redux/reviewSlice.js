@@ -5,7 +5,7 @@ import axios from "../axiosInstance.js";
 //초기값 설정
 const initialState = {
   review: {
-    fileUrlList: [],
+    boardFile: [],
     postId : null,
     reviewContent : ""
   },
@@ -20,12 +20,32 @@ export const createReview = createAsyncThunk(
   "review/create/",
   async (payload, thunkAPI) => {
     try {
-      const response = await instance.post(`/review/create/${payload.postId}`, payload.total, {
-        headers: {
-          "Content-Type": "multipart/form-data" 
-        },
-      });
-      return thunkAPI.fulfillWithValue(payload);
+      console.log("등록 데이터: ", payload);
+
+
+      
+      const response = await instance.post(
+        `/review/create/${payload.postId}`,
+        payload.formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+
+
+
+
+//       console.log("등록 데이터: ", payload);
+//       const response = await instance.post(`/review/create/${payload.postId}`, payload.total, {
+//         headers: {
+//           "Content-Type": "multipart/form-data" ,
+//         },
+//       });
+//       console.log("등록 payload.total: ", payload.total);
+      return thunkAPI.fulfillWithValue(response);
     } catch(e){
       return thunkAPI.rejectWithValue(e);
     }

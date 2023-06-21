@@ -39,7 +39,6 @@ api.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log(error);
     if(error.response.status === 401) {
       const originalRequest = error;
       const headers = {
