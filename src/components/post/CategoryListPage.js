@@ -34,8 +34,10 @@ const CategoryListPage = () => {
   const fetchData = useCallback(async () => {
     try {
       const category = params.category;
+      const nextPage = page.current + 1;
+
       const { data } = await axios.get(
-        `http://localhost:8080/post/list/${category}?page=${page.current}&size=7`
+        `http://localhost:8080/post/list/${category}?page=${page.current}&size=10`
       );
 
       if (data && Array.isArray(data)) {
@@ -45,18 +47,13 @@ const CategoryListPage = () => {
         }));
 
         setData((prevData) => {
-          const filteredData = prevData.filter(
-            (item) => !postData.find((postItem) => postItem.postId === item.postId)
-          );
+          const filteredData = prevData.filter((item) => !data.find((postItem) => postItem.postId === item.postId));
           return [...filteredData, ...postData];
         });
       }
 
-      setHasNextPage(data.length > 0);
-
-      if (data.length > 0) {
-        page.current += 1;
-      }
+      setHasNextPage(data.length === 10);
+      page.current = nextPage;
       setIsLoading(false);
     } catch (err) {
       console.error(err);

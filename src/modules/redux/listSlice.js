@@ -7,28 +7,16 @@ const initialState = {
   title: "",
 };
 
-// export const fetchPostList = createAsyncThunk(
-//   "post/list", async (payload, thunkAPI) => {
-//   try {
-//     const response = await axios.get("http://localhost:8080/post/list");
+export const fetchPostList = createAsyncThunk(
+  "post/list", async (payload, thunkAPI) => {
+  try {
+    const response = await axios.get("http://localhost:8080/post/list");
 
-//     return thunkAPI.fulfillWithValue(response.data);
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error);
-//   }
-// });
-  // export const fetchPostList = createAsyncThunk(
-  //   'posts/fetchPostList',
-  //   async ({ page, pageSize }) => {
-  //     console.log("슬라이스 진입 확인");
-  //   try {
-  //     const response = await axios.get(`http://localhost:8080/post/list?page=${page}&pageSize=${pageSize}`);
-  //     console.log("슬라이스 rerponse", response);
-  //     return response.data;
-  //   } catch (error) {
-  //     throw new Error(error.message);
-  //   }
-  // });
+    return thunkAPI.fulfillWithValue(response.data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 export const fetchPostCategoryList = createAsyncThunk(
   "post/categoryList",
@@ -43,28 +31,6 @@ export const fetchPostCategoryList = createAsyncThunk(
   }
 );
 
-// const listSlice = createSlice({
-//   name: "listInfo",
-//   initialState: {
-//     data: [],
-//     title: "",
-//     isLoading: false,
-//   },
-//   reducers: {},
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(fetchPostList.pending, (state) => {
-//         state.isLoading = true;
-//       })
-//       .addCase(fetchPostList.fulfilled, (state, action) => {
-//         state.isLoading = false;
-//         state.title = action.payload.data;
-//       })
-//       .addCase(fetchPostList.rejected, (state) => {
-//         state.isLoading = false;
-//       });
-//   },
-// });
 const listSlice = createSlice({
   name: "listInfo",
   initialState: {
@@ -73,7 +39,19 @@ const listSlice = createSlice({
     isLoading: false,
   },
   reducers: {},
-  extraReducers: {}
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPostList.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchPostList.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.title = action.payload.data;
+      })
+      .addCase(fetchPostList.rejected, (state) => {
+        state.isLoading = false;
+      });
+  },
 });
 
 export const { setListInfo } = listSlice.actions;
