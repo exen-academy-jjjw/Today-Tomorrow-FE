@@ -43,7 +43,6 @@ export const logout =  createAsyncThunk(
         removeCookie("nickname");
         removeCookie("refreshtoken");
         localStorage.removeItem("accesstoken");
-        console.log("너 이거 하고 있어?");
       }
       
       return thunkAPI.fulfillWithValue(null);
