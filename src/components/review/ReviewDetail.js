@@ -7,9 +7,34 @@ import Header from "../header/Header.js";
 import { detailReview, deleteReview, setImageUrls } from "../../modules/redux/reviewSlice";
 import ReviewpageFooter from "./ReviewpageFooter";
 
-import { convertLocalFilePathToURL } from "./utils"; // 이미지 URL 생성 함수
+// import { convertLocalFilePathToURL } from "./utils"; // 이미지 URL 생성 함수
 
+// 웹 URL 경로
+// function convertLocalFilePathToURL(localPath) {
+//   const pathSegments = localPath.split("\\");
+//   const fileUrlList = pathSegments[pathSegments.length - 1];
+//   console.log("fileUrlList: ", fileUrlList)
+//   return `${process.env.PUBLIC_URL}/uploads/${fileUrlList}`;
+// }
+// function convertLocalFilePathToURL(localPath) {
+//   const pathSegments = localPath.split("\\");
+//   const fileUrlList = pathSegments[pathSegments.length - 1];
+//   console.log("fileUrlList: ", fileUrlList);
+//   return `${process.env.PUBLIC_URL}/upload/${fileUrlList}`;
+// }
 
+ // 웹 URL 경로
+  function convertLocalFilePathToURL(localPath) {
+    const pathSegments = localPath.replace(/\\/g, '/').split('/');
+    const filePath = pathSegments.slice(1).join('/'); // Remove the drive letter from the path
+    console.log("데이터: ", filePath)
+    // const UrlPath = `file:///${filePath}`;
+    // return UrlPath;
+    // const fileName
+    // console.log("데이터: ", pathSegments)
+    return filePath;
+
+  } 
 
 function ReviewDetail(){
   const dispatch = useDispatch();
@@ -20,30 +45,68 @@ function ReviewDetail(){
   // 이미지
   const [image, setImage] = useState([]);
   const [fileImage, setFileImage] = useState([]);
-  // console.log("이미지:", image);
+  console.log("이미지:", image);
+
   const [imageUrls, setImageUrls] = useState([]);
 
+  // useEffect(() => {
+  //   async function fetchReviewDetail() {
+  //     try {
+  //       const response = await dispatch(detailReview(postId));
 
+  //       // if (!response.data) {
+  //       //   console.log("API 응답이 올바르지 않습니다.");
+  //       //   return;
+  //       // }
+  
+  //       const { data: reviewData, fileUrlList: imagePaths } = response.data;
+  //       console.log("reviewData: ", reviewData)
+  //       console.log("imagePaths: ", imagePaths)
+
+  
+  //       // 데이터 추출
+  //       const { reviewContent: data } = reviewData;
+  
+  //       // 파일 경로를 Blob 객체로 변환하는 함수
+  //       const pathToBlob = async (path) => {
+  //         const response = await fetch(path);
+  //         const blob = await response.blob();
+  //         return blob;
+  //       };
+  
+  //       // 파일 경로들을 Blob 객체들로 변환하여 배열로 가져오기
+  //       const imageBlobs = await Promise.all(imagePaths.map(pathToBlob));
+  
+  //       // Blob 객체들을 URL로 변환하여 이미지 URL 배열 생성
+  //       const imageUrls = imageBlobs.map((blob) => URL.createObjectURL(blob));
+  
+  //       // 데이터와 이미지 URL 설정
+  //       setData(data);
+  //       setImageUrls(imageUrls);
+  //     } catch (error) {
+  //       console.log("Error:", error);
+  //     }
+  //   }
+  
+  //   fetchReviewDetail();
+  // }, [postId]);
+  
 
   useEffect(() => {
     async function detailData() {
-      try {
         const response = await dispatch(detailReview(postId));
-        const { reviewContent: data, fileUrlList } = response.payload;
-        // dispatch(setImageUrls(fileUrlList));
+
+        // const image = response.payload.fileUrlList.map((localPath) => convertLocalFilePathToURL(localPath));
+        // const imageUrls = image.map((fileUrl) => URL.createObjectURL(fileUrl));
+        // const fileU = response.payload.fileUrlList.map((img, index) => ());
+        setData(response.payload.reviewContent);
+        setImage(response.payload.fileUrlList);
+        console.log("정보1: ", response.payload.reviewContent)
+        console.log("정보2: ", response.payload.fileUrlList[0])
+        // console.log("정보3: ", fileU[0])
 
 
-        // const urls = fileUrlList.map((localPath) => convertLocalFilePathToURL(localPath));
-        // setImageUrls(urls);
-
-
-
-        setData(data);
-        setImage(fileUrlList);
-      } catch (error) {
-        console.log("Error:", error);
       }
-    }
     detailData();
   }, [dispatch, postId]);
 
@@ -51,55 +114,9 @@ function ReviewDetail(){
   const deleteHandler = async (e) => {
     e.preventDefault();
     dispatch(deleteReview(postId));
-    navigate(`/home`);
+    navigate(`/post/detail/${postId}`);
   };
-
-
-
-  // //이미지 미리보기 및 등록
-  // const onChangeImg = (e) => {
-  //   const imageList = e.target.files;
-  //   let imageLists = [...image];
-  //   let imgFiles = [...fileImage];
-  //   for (let i = 0; i < imageList.length; i++) {
-  //     const nowImageUrl = URL.createObjectURL(fileUrlList[i]);
-  //     imgFiles.push(nowImageUrl);
-  //     const nowImageUrl1 = fileUrlList[i];
-  //     imageLists.push(nowImageUrl1);
-  //   }
-  //   //이미지 개수 최대 3개까지 등록가능
-  //   if (imageLists.length > 3) {
-  //     window.alert("이미지는 최대 3개까지 등록 가능합니다")
-  //     imageLists = imageLists.slice(0, 3);
-  //   }
-  //   if(imgFiles.length > 3){
-  //     imgFiles = imgFiles.slice(0, 3);
-  //   }
-  //   setFileImage(imgFiles);
-  //   setImage(imageLists);
-  // };
-
-  // //이미지 삭제
-  // const handleDeleteImage = (id) => {
-  //   setFileImage(fileImage.filter((_, index) => index !== id));
-  //   setImage(image.filter((_, index) => index !== id));
-  // };
-
-
-
-
-
-
-
-  // // 웹 URL 경로
-  // function convertLocalFilePathToURL(localPath) {
-  //   const pathSegments = localPath.replace(/\\/g, '/').split('/');
-  //   const filePath = pathSegments.slice(1).join('/'); // Remove the drive letter from the path
-  //   console.log("데이터: ", filePath)
-  //   const UrlPath = `file:///${filePath}`;
-  //   return UrlPath;
-  // } 
-
+ 
   return (
     <>
       <div className="pageBg" >
@@ -108,23 +125,13 @@ function ReviewDetail(){
         <div className="pageBox">
           <div className="reviewAboutPostBox">
             <div className="fileBox">
-              {/* <img src="C://upload//4/2658298d-8acb-443d-a1f4-a6e9eea58034_33－332256＿northern－lights－wallpaper－aurora.jpg"></img> */}
-                <br />
-                {/* {imageUrls.map((img, index) => (
+                {image.map((img, index) => (
                   <div className="imgBg" key={index}>
                     <div className="imgBox">
-                      <img src={img} alt={`Image ${index}`} style={{ height: "15vh", minWidth: "10vw" }} />
+                      <img src={image[0]} alt={`Image ${index}`} style={{ height: "13vh", maxWidth: "10vw",minWidth: "10vw" }} />
                     </div>
                   </div>
-                ))} */}
-{/* 
-                {image.map((fileUrlList, index) => (
-                  <div className="imgBg" key={index}>
-                    <div className="imgBox">
-                      <img src={fileUrlList} alt={`Image ${index}`} style={{ height: "13vh", maxWidth: "10vw",minWidth: "10vw" }} />
-                    </div>
-                  </div> */}
-                  {/* ))} */}
+                ))} 
             </div>
           </div>
           <div className="reviewDetailBox">

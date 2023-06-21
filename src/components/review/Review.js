@@ -62,15 +62,16 @@ function Review(){
       formData.append("fileUrl", image[i]);
     }
     formData.append("reviewContent", data);
+    console.log("fileUrl: ",formData )
 
     try {
       await dispatch(createReview({ postId, total: formData }));
-      navigate(`/review/detail/${postId}`);
+      // navigate(`/review/detail/${postId}`);
     } catch (error) {
       console.log("Error:", error);
     }
   };
-  
+  console.log("fileName: ",image )
   return (
     <>
       <div className="pageBg" >
@@ -93,7 +94,7 @@ function Review(){
               </div>
             </div>
             <div className="reviewCreateBox" >
-              <textarea className="review" placeholder="리뷰 작성" name="reviewContent" onChange={handleContent}/>
+              <textarea className="review" placeholder="리뷰 작성" name="reviewContent" value={data} onChange={handleContent}/>
               {/* value={data}  */}
             </div>  
             <div className="reviewAddBtnBox">

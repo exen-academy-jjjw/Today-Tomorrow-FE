@@ -1,82 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import instance from "../axiosInstance.js";
-
-// //초기값 설정
-// const initialState = {
-//   // postId: null,
-//   // fileUrlList: [],
-//   // reviewContent: "",
-//   info:{},
-//   isLoading: false,
-//   details: null
-
-//   // review: {
-//   //   multipartFiles: [],
-//   //   postId : null,
-//   //   reviewContent : ""
-//   // },
-//   // isLoading: false,
-//   // error: null
-// };
-
-
-// /* API 요청을 위한 액션 */
-// // 작성
-// export const createReview = createAsyncThunk(
-//   "review/create/",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const data = await instance.post(`/review/create/${payload.postId}`, payload
-//       // , {
-//         // headers: {
-//         //   "Content-Type": "multipart/form-data" 
-//         // },
-//       // }
-//       );
-//       console.log("데이터3: ", data);
-
-//       return thunkAPI.fulfillWithValue(data);
-//     } catch(e){
-//       // return thunkAPI.rejectWithValue(e);
-//     }
-//   }
-// );
-// export const createReview = createAsyncThunk(
-//   "review/create",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const { postId, formData } = payload;
-//       const response = await instance.post(`/review/create/${postId}`, formData);
-//       console.log("데이터3: ", formData);
-//       return response.data;
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-// );
-// export const createReview = createAsyncThunk(
-//   "review/create/",
-//   async (payload, thunkAPI) => {
-//     try {
-//       console.log("postId : ", payload)
-//       const response = await axios.post(`http://localhost:8080/review/create/${payload.postId}`, formData
-//       // , {
-//       //   headers: {
-//       // //     "Content-Type": "application/json"
-//       //     // "Content-Type": "multipart/form-data" 
-//       //   },
-//       // }
-//       );
-//       console.log("response: ", payload.review);
-//       return thunkAPI.fulfillWithValue(payload.review);
-//     } catch(e){
-//       return thunkAPI.rejectWithValue(e);
-//     }
-//   }
-// );
-
-
-
 import axios from "../axiosInstance.js";
 
 //초기값 설정
@@ -97,15 +20,12 @@ export const createReview = createAsyncThunk(
   "review/create/",
   async (payload, thunkAPI) => {
     try {
-      console.log("postId : ", payload)
-      const response = await instance.post(`http://localhost:8080/review/create/${payload.postId}`, payload.total, {
+      const response = await instance.post(`/review/create/${payload.postId}`, payload.total, {
         headers: {
           "Content-Type": "multipart/form-data" 
         },
       });
-
-      console.log(" payload.total : ",  payload.total)
-      return thunkAPI.fulfillWithValue(response);
+      return thunkAPI.fulfillWithValue(payload);
     } catch(e){
       return thunkAPI.rejectWithValue(e);
     }
@@ -119,7 +39,9 @@ export const detailReview = createAsyncThunk(
   "review/detail",
   async (postId, thunkAPI) => {
     try {
-      const response = await axios.get(`http://localhost:8080/review/detail/${postId}`);
+      const response = await instance.get(`/review/detail/${postId}`
+      );
+      console.log("데이터: ", response.data.fileUrlList);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
