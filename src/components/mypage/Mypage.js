@@ -86,7 +86,7 @@ const Mypage = () => {
               </p>
             </section>
             <div className="mainBtnBox">
-              <button onClick={() => navigate("/post/list")}>list</button>
+              <button onClick={() => navigate(`/post/list?page=0&size=7`)}>list</button>
             </div>
           </div>
           {nicknameModal ? (

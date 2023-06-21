@@ -39,10 +39,12 @@ export const logout =  createAsyncThunk(
     try{
       await axios.get('http://localhost:8080/member/logout');
 
-      removeCookie("nickname");
-      removeCookie("refreshtoken");
-      localStorage.removeItem("accesstoken");
-
+      if(getCookie('refreshtoken') || localStorage.getItem('accesstoken')) {
+        removeCookie("nickname");
+        removeCookie("refreshtoken");
+        localStorage.removeItem("accesstoken");
+      }
+      
       return thunkAPI.fulfillWithValue(null);
     } catch(e){
       return thunkAPI.rejectWithValue(e);
