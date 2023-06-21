@@ -13,5 +13,5 @@ export const getCookie = (name) => {
 };
 
 export const removeCookie = (name, option) => {
-  return cookies.remove(name, {expires: 0});
+  return cookies.remove(name, {path: "/", expires: 0});
 };

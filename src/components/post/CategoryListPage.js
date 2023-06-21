@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  fetchPostCategoryList,
-  fetchPostList,
-} from "../../modules/redux/listSlice.js";
+import { fetchPostCategoryList } from "../../modules/redux/listSlice.js";
 import { updateCompletion } from "../../modules/redux/postSlice.js";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import Header from "../header/Header.js";
 import "./css/listPageStyle.scss";
+
+import axios from "../../modules/axiosInstance.js"
 
 import {
   MdFlightTakeoff,
@@ -21,33 +20,71 @@ import {
 const CategoryListPage = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState();
   const navigate = useNavigate();
   const location = useLocation();
 
   const params = useParams();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const category = params.category;
-        const response = await dispatch(fetchPostCategoryList(category));
-        if (response.payload && Array.isArray(response.payload.data)) {
-          const postData = response.payload.data.map((item) => ({
-            ...item,
-            completed: item.completion === 1,
-          }));
-          setData(postData);
-        }
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
+  const [hasNextpage, setHasNextPage] = useState(true);
+  const observerTargetEl = useRef(null);
+  const page = useRef(0);
+  const { pathname } = useLocation();
+
+  const fetchData = useCallback(async () => {
+    try {
+      const category = params.category;
+      const nextPage = page.current + 1;
+
+      const { data } = await axios.get(
+        `http://localhost:8080/post/list/${category}?page=${page.current}&size=10`
+      );
+
+      if (data && Array.isArray(data)) {
+        const postData = data.map((item) => ({
+          ...item,
+          completed: item.completion === 1,
+        }));
+
+        setData((prevData) => {
+          const filteredData = prevData.filter((item) => !data.find((postItem) => postItem.postId === item.postId));
+          return [...filteredData, ...postData];
+        });
       }
+
+      setHasNextPage(data.length === 10);
+      page.current = nextPage;
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+      setIsLoading(true);
     }
 
+  }, [location, params.category]);
+
+  useEffect(() => {
+    if (!observerTargetEl.current || !hasNextpage) return;
+  
+    const io = new IntersectionObserver((entries, observer) => {
+      if (entries[0].isIntersecting) {
+        fetchData();
+      }
+    });
+
+    io.observe(observerTargetEl.current);
+  
+    return () => {
+      io.disconnect();
+    };
+  }, [fetchData, hasNextpage]);
+
+  useEffect(() => {
     fetchData();
-  }, [location]);
+  }, [fetchData]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const handleTitleClick = (postId) => {
     navigate(`/post/detail/${postId}`);
@@ -77,11 +114,15 @@ const CategoryListPage = () => {
   };
 
   const handleCategoryClick = (category) => {
-    navigate(`/post/list/${category}`);
+    page.current = 0;
+    setData([]);
+    navigate(`/post/list/${category}?page=${page.current}&size=7`);
   };
 
   const handleAllPostsClick = () => {
-    navigate("/post/list/");
+    page.current = 0;
+    setData([]);
+    navigate(`/post/list?page=${page.current}&size=7`);
   };
 
   const postCreateHandler = () => {
@@ -152,6 +193,7 @@ const CategoryListPage = () => {
                 </li>
               ))}
           </ul>
+          <div ref={observerTargetEl}></div>
         </div>
         <div className="addBtn">
           <button onClick={postCreateHandler}>add</button>

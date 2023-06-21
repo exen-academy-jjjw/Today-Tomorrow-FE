@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchPostList } from "../../modules/redux/listSlice.js";
+// import { fetchPostList } from "../../modules/redux/listSlice.js";
 import { updateCompletion } from "../../modules/redux/postSlice.js";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import Header from '../header/Header.js';
 import "./css/listPageStyle.scss";
+import axios from "../../modules/axiosInstance.js"
 
 import { MdFlightTakeoff, MdFavorite, MdMoreHoriz, MdOutlineLibraryAdd, MdOutlineModeEdit } from "react-icons/md";
 
@@ -14,25 +15,49 @@ const ListPage = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [hasNextpage, setHasNextPage] = useState(true);
+  const observerTargetEl = useRef(null);
+  const page = useRef(0);
+  const { pathname } = useLocation();
+
+  const fetch = useCallback(async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8080/post/list?page=${page.current}&size=10`
+      );
+      const postData = data.map((item) => ({
+        ...item,
+        completed: item.completion === 1,
+      }));
+      
+      setData((prevData) => [...prevData, ...postData]);
+      setHasNextPage(data.length === 10);
+      if (data.length) {
+        page.current += 1;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await dispatch(fetchPostList());
-        console.log(response.payload);
-        const postData = response.payload.map((item) => ({
-          ...item,
-          completed: item.completion === 1,
-        }));
-        
-        setData(postData);
-      } catch (error) {
-        console.error(error);
+    if (!observerTargetEl.current || !hasNextpage) return;
+  
+    const io = new IntersectionObserver((entries, observer) => {
+      if (entries[0].isIntersecting) {
+        fetch();
       }
+    });
+    io.observe(observerTargetEl.current);
+  
+    return () => {
+      io.disconnect();
     };
+  }, [fetch, hasNextpage]);
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const handleTitleClick = (postId) => {
     navigate(`/post/detail/${postId}`);
@@ -43,11 +68,15 @@ const ListPage = () => {
   };
 
   const handleCategoryClick = (category) => {
-    navigate(`/post/list/${category}`);
+    page.current = 0;
+    setData([]);
+    navigate(`/post/list/${category}?page=${page.current}&size=7`);
   };
 
   const handleAllPostsClick = () => {
-    navigate("/post/list/");
+    page.current = 0;
+    setData([]);
+    navigate(`/post/list?page=${page.current}&size=7`);
   };
 
   const handleCheckboxClick = async (postId) => {
@@ -109,6 +138,7 @@ const ListPage = () => {
                 </li>
               ))}
           </ul>
+          <div ref={observerTargetEl}></div>
         </div>
         <div className="addBtn">
           <button onClick={postCreateHandler}>

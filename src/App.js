@@ -11,6 +11,7 @@ import CategoryListPage from "./components/post/CategoryListPage";
 import Mypage from "./components/mypage/Mypage";
 import Unregister from "./components/mypage/Unregister";
 import { PrivateRoute } from "./components/shared/PrivateRoute";
+import { PrivateRouteTwo } from "./components/shared/PrivateRouteTwo";
 
 import Review from './components/review/Review';
 import ReviewDetail from './components/review/ReviewDetail';
@@ -20,9 +21,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/member/signup" element={<SignupPage />} />
-        <Route path="/member/login" element={<LoginPage />} />
+        <Route element={<PrivateRouteTwo />}>
+          <Route path="/" element={<Main />} />
+          <Route path="/member/signup" element={<SignupPage />} />
+          <Route path="/member/login" element={<LoginPage />} />
+        </Route>
 
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" element={<Mypage />} />
