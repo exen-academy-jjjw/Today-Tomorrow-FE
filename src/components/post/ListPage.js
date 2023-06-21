@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useRef } from "react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { fetchPostList } from "../../modules/redux/listSlice.js";
 import { updateCompletion } from "../../modules/redux/postSlice.js";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import Header from '../header/Header.js';
