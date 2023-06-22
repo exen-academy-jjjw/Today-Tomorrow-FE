@@ -15,6 +15,7 @@ import { PrivateRouteTwo } from "./components/shared/PrivateRouteTwo";
 
 import Review from './components/review/Review';
 import ReviewUpdate from './components/review/ReviewUpdate';
+import ReviewDetail from './components/review/ReviewDetail';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/post/list/:category" element={<CategoryListPage />} />
           
           <Route path='/review/create/:postId' element={<Review />} />
+          <Route path='/review/detail/:postId' element={<ReviewDetail />} />
           <Route path='/review/update/:postId' element={<ReviewUpdate />} />
         </Route>
       </Routes>

@@ -14,7 +14,7 @@ const PostDetailPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
-  console.log("data", data);
+  // console.log("data", data);
 
 
   useEffect(() => {
@@ -24,6 +24,9 @@ const PostDetailPage = () => {
       if (response.payload) {
         const completionValue = response.payload.completion === 1 ? "1" : "0";
         setData({ ...response.payload, completion: completionValue });
+        
+        // const existReviewValue = response.payload.existReview === 1? "1" : "0";
+        // setData({ ...response.payload, existReview : existReviewValue });
       }
     }
 
@@ -62,6 +65,7 @@ const PostDetailPage = () => {
     return null;
   }
 
+  // console.log("값 들어오나?", data);
   return (
     <>
       <div className="pageBg">
@@ -82,9 +86,11 @@ const PostDetailPage = () => {
             <h3>{data.title}</h3>
             <p>{data.content}</p>
           </div>
-          {data.existReview === 1 ? <ReviewDetail /> : 
-          <button className="reviewCreateBtn" onClick={() => navigate(`/review/create/${data.postId}`)}>Review Create</button>}
-          
+          {data.existReview === 1 ? <ReviewDetail />
+          : <button className="reviewCreateBtn" onClick={() =>
+            navigate(`/review/create/${data.postId}`)}>Review Create
+            </button>
+           }
         </div>
       </div>
     </>

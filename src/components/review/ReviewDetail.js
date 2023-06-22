@@ -29,6 +29,7 @@ function ReviewDetail(){
     navigate(`/post/detail/${postId}`);
   };
  
+  console.log(data);
   return (
     <>
       <div className="reviewBox">
