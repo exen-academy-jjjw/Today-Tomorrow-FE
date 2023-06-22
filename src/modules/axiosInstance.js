@@ -15,19 +15,19 @@ api.interceptors.request.use(
     //요청시 AccessToken 계속 보내주기
     if (!accessToken) {
         config.headers.authorization = accessToken;
-        console.log("request start", config);
+        // console.log("request start", config);
         return config;
     }
 
     if (config.headers && accessToken) {
         config.headers.authorization = accessToken;
-        console.log("request start", config);
+        // console.log("request start", config);
       return config;
     }
   },
   function (error) {
     
-    console.log("request error", error);
+    // console.log("request error", error);
     return Promise.reject(error);
   }
 );
@@ -35,6 +35,7 @@ api.interceptors.request.use(
 // 데이터받을 시
 api.interceptors.response.use(
   function (response) {
+    // console.log("response start", response);
     return response;
   },
   async (error) => {

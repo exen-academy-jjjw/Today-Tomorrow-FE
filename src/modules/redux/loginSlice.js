@@ -3,9 +3,9 @@ import axios from "../axiosInstance.js";
 import { getCookie, removeCookie, setCookie } from "../../components/cookie/cookie";
 
 const initialState = {
-  memberId: "",
-  password: "",
-  nickname: getCookie("nickname") || ""
+  info:{},
+  isLoading: false,
+  error: null,
 };
 
 export const postLogin = createAsyncThunk(
@@ -39,9 +39,12 @@ export const logout =  createAsyncThunk(
     try{
       await axios.get('http://localhost:8080/member/logout');
 
-      removeCookie('nickname');
-      removeCookie("refreshtoken");
-      localStorage.removeItem("accesstoken");
+      if(getCookie('refreshtoken') || localStorage.getItem('accesstoken')) {
+        removeCookie("nickname");
+        removeCookie("refreshtoken");
+        localStorage.removeItem("accesstoken");
+      }
+      
       return thunkAPI.fulfillWithValue(null);
     } catch(e){
       return thunkAPI.rejectWithValue(e);
@@ -49,21 +52,37 @@ export const logout =  createAsyncThunk(
   }
 );
 
-
 export const loginSlice = createSlice({
   name : "loginInfo",
   initialState,
   reducers: {
   },
   extraReducers: (builder) => {
-    builder.addCase(postLogin.fulfilled, (state, action) => {
-      state.nickname = action.payload.data;
-      state.isLoggedIn = true;
-      removeCookie('nickname');
-      setCookie("nickname", state.nickname);
-    });
-    builder.addCase(logout.fulfilled, (state, action) => {
-      state.isLoggedIn = false;
+    builder
+      .addCase(postLogin.pending, (state) => {
+          state.isLoading = true;
+      })
+      .addCase(postLogin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.nickname = action.payload.data;
+        removeCookie('nickname');
+        setCookie("nickname", state.nickname);
+      })
+      .addCase(postLogin.rejected, (state,action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isLoggedIn = false;
+      })
+      .addCase(logout.rejected, (state,action) => {
+        state.isLoading = false;
+        state.error = action.payload;
     });
   }
 }); 

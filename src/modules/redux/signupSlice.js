@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    memeberId: "",
-    nickname: "",
-    password: "",
-    passwordConfirm: "" 
-  };
+  info:{},
+  isLoading: false,
+  error: null,
+};
+
   
   export const postSignup = createAsyncThunk(
     "mypage/getNickname",
@@ -31,10 +31,22 @@ const initialState = {
     name : "signupInfo",
     initialState,
     reducers:{},
-    extraReducers:{
-      
-    }
+    extraReducers: (builder) => {
+      builder
+        .addCase(postSignup.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(postSignup.fulfilled, (state,action) => {
+            state.isLoading = false;
+            state.info = action.payload;
+        })
+        .addCase(postSignup.rejected, (state,action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        })  
+    }   
   }); 
+
 
 export const { setSignupInfo } = signupSlice.actions;
 export default signupSlice.reducer;

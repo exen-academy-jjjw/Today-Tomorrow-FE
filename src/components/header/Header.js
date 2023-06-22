@@ -24,7 +24,7 @@ const Header = () => {
   return (
     <>
       <section className="headerBox">
-        <div className="logoBox" onClick={() => navigate("/post/list")}>
+        <div className="logoBox" onClick={() => navigate(`/post/list?page=0&size=7`)}>
           <BsBucketFill
             style={{ color: "orange", fontSize: "2rem", marginRight: "0.5rem" }}
           />
