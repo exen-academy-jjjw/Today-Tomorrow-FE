@@ -16,9 +16,6 @@ function Review(){
   const [image, setImage] = useState([]);
   const [fileImage, setFileImage] = useState([]);
 
-  // 리뷰
-  const [data, setData] = useState("");
-
   //이미지 미리보기 및 등록
   const onChangeImg = (e) => {
     const imageList = e.target.files;
@@ -48,11 +45,6 @@ function Review(){
     setImage(image.filter((_, index) => index !== id));
   };
 
-  // 리뷰 등록
-  const handleContent = (e) => {
-    setData(e.target.value);
-  };
-
   // 이미지 및 리뷰 등록 보내기
   const onSubmitHandler = async(e) => {
     e.preventDefault();
@@ -60,7 +52,6 @@ function Review(){
     for (let i = 0; i < image.length; i++) {
       formData.append("fileUrl", image[i]);
     }
-    formData.append("reviewContent", data);
 
     try {
       await dispatch(createReview({ postId, total: formData }));
@@ -72,35 +63,18 @@ function Review(){
   
   return (
     <>
-      <div className="pageBg" >
-      <Header />
-        <br/> 
-        <div className="pageBox">
-          <form onSubmit={onSubmitHandler}>
-            <div className="reviewBox">
-              <div className="fileBox">
-                <input type="file" className="file" id="fileTxt" name="fileUrl" multiple onChange={onChangeImg}/>
-                <br />
-                {image.map((img, index) => (
-                  <div className="imgBg" key={index}>
-                    <div className="imgBox">
-                      <img src={URL.createObjectURL(img)} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
-                      <button type="button" className="imgBtn" onClick={() => handleDeleteImage(index)}>X</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="reviewCreateBox" >
-                <textarea className="review" placeholder="리뷰 작성" name="reviewContent" value={data} onChange={handleContent}/>
-              </div>  
-              <div className="reviewAddBtnBox">
-                <button className="reviewAddBtn">Review Add</button>
-              </div>
+      <form onSubmit={onSubmitHandler}>
+        <input type="file" className="file" id="fileTxt" name="fileUrl" multiple onChange={onChangeImg}/>
+        <br />
+        {image.map((img, index) => (
+          <div className="imgBg" key={index}>
+            <div className="imgBox">
+              <img src={URL.createObjectURL(img)} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
+              <button type="button" className="imgBtn" onClick={() => handleDeleteImage(index)}>X</button>
             </div>
-          </form>
-        </div>
-        <ReviewpageFooter />
-      </div>
+          </div>
+        ))}
+      </form>
     </>
   )
 }

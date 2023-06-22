@@ -5,6 +5,7 @@ import { fetchPostDetails, updateCompletion, deletePost } from "../../modules/re
 import { useState } from "react";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import Header from '../header/Header.js';
+import ReviewDetail from '../review/ReviewDetail';
 
 import "./css/postPageStyle.scss";
 
@@ -13,10 +14,13 @@ const PostDetailPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+  console.log("data", data);
+
 
   useEffect(() => {
     async function fetchData() {
       const response = await dispatch(fetchPostDetails(postId));
+
       if (response.payload) {
         const completionValue = response.payload.completion === 1 ? "1" : "0";
         setData({ ...response.payload, completion: completionValue });
@@ -78,7 +82,9 @@ const PostDetailPage = () => {
             <h3>{data.title}</h3>
             <p>{data.content}</p>
           </div>
-          <button className="reviewCreateBtn" onClick={() => navigate(`/review/create/${data.postId}`)}>Review Create</button>
+          {data.existReview === 1 ? <ReviewDetail /> : 
+          <button className="reviewCreateBtn" onClick={() => navigate(`/review/create/${data.postId}`)}>Review Create</button>}
+          
         </div>
       </div>
     </>

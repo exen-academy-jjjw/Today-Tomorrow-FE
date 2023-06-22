@@ -2,10 +2,11 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import instance from "../axiosInstance.js";
 import axios from "../axiosInstance.js";
 
+
 //초기값 설정
 const initialState = {
   review: {
-    boardFile: [],
+    fileUrlList: [],
     postId : null,
     reviewContent : ""
   },
@@ -13,46 +14,22 @@ const initialState = {
   error: null
 };
 
-
-/* API 요청을 위한 액션 */
 // 작성
 export const createReview = createAsyncThunk(
   "review/create/",
   async (payload, thunkAPI) => {
     try {
-      console.log("등록 데이터: ", payload);
-
-
-      
-      const response = await instance.post(
-        `/review/create/${payload.postId}`,
-        payload.formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-
-
-
-
-//       console.log("등록 데이터: ", payload);
-//       const response = await instance.post(`/review/create/${payload.postId}`, payload.total, {
-//         headers: {
-//           "Content-Type": "multipart/form-data" ,
-//         },
-//       });
-//       console.log("등록 payload.total: ", payload.total);
+      const response = await instance.post(`/review/create/${payload.postId}`, payload.total, {
+        headers: {
+          "Content-Type": "multipart/form-data" 
+        },
+      });
       return thunkAPI.fulfillWithValue(response);
     } catch(e){
       return thunkAPI.rejectWithValue(e);
     }
   }
 );
-
-
 
 // 조회
 export const detailReview = createAsyncThunk(
@@ -61,7 +38,7 @@ export const detailReview = createAsyncThunk(
     try {
       const response = await instance.get(`/review/detail/${postId}`
       );
-      console.log("데이터: ", response.data.fileUrlList);
+      console.log("조회 데이터: ", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -99,12 +76,16 @@ export const updateReview = createAsyncThunk(
   "review/update",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.put(`/review/update/${payload.postId}`, payload.total, {
+      console.log("수정 payload: ", payload.total)
+      console.log("postId: ", payload.postId)
+      const response = await instance.put(`/review/update/${payload.postId}`, payload.total, {
         headers: {
           "Content-Type": "multipart/form-data" 
         },
       });
-      console.log("데이터: ", payload)
+      console.log("수정 데이터: ", response.total)
+      console.log("수정 payload.total : ", payload.total)
+
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -118,7 +99,7 @@ export const deleteReview = createAsyncThunk(
   "review/delete",
   async (postId, thunkAPI) => {
     try {
-      await axios.delete(`/review/delete/${postId}`);
+      await instance.delete(`/review/delete/${postId}`);
       return thunkAPI.fulfillWithValue(postId);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -130,29 +111,11 @@ export const deleteReview = createAsyncThunk(
 export const reviewSlice = createSlice({
   name : "review",
   initialState: {},
-  reducers:{
-    // setImageUrls: (state, action) => {
-    //   return action.payload;
-    // },
-  },
+  reducers:{},
   extraReducers:(builder) => {
-    // builder
-    //   .addCase(createReview.pending, (state) => {
-    //     state.isLoading = true;
-    //     state.error = null;
-    //   })
-    //   .addCase(createReview.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.review = action.payload;
-    //   })
-    //   .addCase(createReview.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.error = action.payload;
-    //   })
     builder  
       .addCase(detailReview.pending, (state) => {
         state.isLoading = true;
-        // state.review = action.payload;
       })
       .addCase(detailReview.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -160,7 +123,6 @@ export const reviewSlice = createSlice({
       })
       .addCase(detailReview.rejected, (state) => {
         state.isLoading = false;
-        // state.error = action.payload;
       })
     // builder
     //   .addCase(updateReview.pending, (state) => {
@@ -174,18 +136,6 @@ export const reviewSlice = createSlice({
     //     state.isLoading = false;
     //     state.error = action.payload;
     //   })
-    // builder
-    //   .addCase(deleteReview.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(deleteReview.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.review = null;
-    //   })
-    //   .addCase(deleteReview.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.error = action.payload;
-    //   }) 
   }
 }); 
 
