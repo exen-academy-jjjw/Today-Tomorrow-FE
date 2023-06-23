@@ -21,10 +21,11 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/member/signup" element={<SignupPage />} />
+        <Route path="/member/login" element={<LoginPage />} />
+
         <Route element={<PrivateRouteTwo />}>
           <Route path="/" element={<Main />} />
-          <Route path="/member/signup" element={<SignupPage />} />
-          <Route path="/member/login" element={<LoginPage />} />
         </Route>
 
         <Route element={<PrivateRoute />}>

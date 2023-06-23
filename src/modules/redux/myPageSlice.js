@@ -53,6 +53,31 @@ const initialState = {
     }
   );
 
+  export const memberDelete = createAsyncThunk(
+    "member/delete",
+    async (payload, thunkAPI) => {
+        console.log(payload);
+        try {
+            const response = await axios.post('http://localhost:8080/member/delete', payload.data);
+            console.log(response);
+            if(response.data === 200) {
+                window.alert("회원탈퇴가 완료됐습니다");
+                removeCookie("nickname");
+                removeCookie("refreshtoken");
+                localStorage.removeItem("accesstoken");
+                payload.navigate("/");
+            } else if(response.data === 400){
+                window.alert("비밀번호가 틀렸습니다");
+                payload.navigate("/mypage/unregister");
+            }
+
+            return thunkAPI.fulfillWithValue(response);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+  );
+
   const myPageSlice = createSlice({
     name: "myPageInfo",
     initialState,
