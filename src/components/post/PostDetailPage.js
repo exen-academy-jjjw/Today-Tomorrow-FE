@@ -14,6 +14,9 @@ const PostDetailPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+  // const [getData, setGetData] = useState(null);
+  
+
   // console.log("data", data);
 
 
@@ -25,8 +28,8 @@ const PostDetailPage = () => {
         const completionValue = response.payload.completion === 1 ? "1" : "0";
         setData({ ...response.payload, completion: completionValue });
         
-        // const existReviewValue = response.payload.existReview === 1? "1" : "0";
-        // setData({ ...response.payload, existReview : existReviewValue });
+        // const existReviewValue = response.payload.existReview === 1 ? "1" : "0";
+        // setGetData({ ...response.payload, existReview : existReviewValue });
       }
     }
 
@@ -65,7 +68,7 @@ const PostDetailPage = () => {
     return null;
   }
 
-  // console.log("값 들어오나?", data);
+  console.log("data 값", data);
   return (
     <>
       <div className="pageBg">

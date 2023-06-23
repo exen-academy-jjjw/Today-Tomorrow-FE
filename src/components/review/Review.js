@@ -16,9 +16,6 @@ function Review(){
   const [image, setImage] = useState([]);
   const [fileImage, setFileImage] = useState([]);
 
-
-  console.log("작성 값: ",image );
-
   // 리뷰
   const [data, setData] = useState("");
 
