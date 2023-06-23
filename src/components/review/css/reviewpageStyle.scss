@@ -2,12 +2,12 @@
 
 //페이지 배경
 .pageBg{
-  position: relative;
-  max-width: 480px;
-  height: 99vh;
-  margin: auto;
-  border: 1px solid $PM-gray;
-  background-color: $PM-back-1;
+  // position: relative;
+  // max-width: 480px;
+  // height: 99vh;
+  // margin: auto;
+  // border: 1px solid $PM-gray;
+  // background-color: $PM-back-1;
 
   //페이지 전체 박스
   .pageBox{
@@ -17,19 +17,19 @@
     background-color: $PM-white;
 
     //카테고리 박스
-    .categoryBox{
-      border: 2px solid #D6E4E5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 30%;
-      .categoryTxt{
-        position: relative;
-        display: inline-block;
-        color: $PM-gray;
-        margin: 0;
-      }
-    }
+    // .categoryBox{
+    //   border: 2px solid #D6E4E5;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   width: 30%;
+    //   .categoryTxt{
+    //     position: relative;
+    //     display: inline-block;
+    //     color: $PM-gray;
+    //     margin: 0;
+    //   }
+    // }
 
     //게시글 박스
     .reviewAboutPostBox{
