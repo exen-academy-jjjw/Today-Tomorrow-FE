@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../header/Header.js";
 import { createReview } from "../../modules/redux/reviewSlice";
-import ReviewpageFooter from "./ReviewpageFooter";
 
 
 function Review(){
@@ -15,9 +14,6 @@ function Review(){
   // 이미지
   const [image, setImage] = useState([]);
   const [fileImage, setFileImage] = useState([]);
-
-
-  console.log("작성 값: ",image );
 
   // 리뷰
   const [data, setData] = useState("");
@@ -102,7 +98,6 @@ function Review(){
             </div>
           </form>
         </div>
-        <ReviewpageFooter />
       </div>
     </>
   )

@@ -26,7 +26,9 @@ function ReviewDetail(){
   const deleteHandler = async (e) => {
     e.preventDefault();
     dispatch(deleteReview(postId));
-    navigate(`/post/detail/${postId}`);
+    // navigate가 안되서 window.location.reload로 변경
+    window.location.reload();
+    // navigate(`/post/detail/${postId}`);
   };
  
   console.log(data);

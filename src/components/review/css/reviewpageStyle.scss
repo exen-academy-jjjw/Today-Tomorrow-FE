@@ -2,12 +2,6 @@
 
 //페이지 배경
 .pageBg{
-  position: relative;
-  max-width: 480px;
-  height: 99vh;
-  margin: auto;
-  border: 1px solid $PM-gray;
-  background-color: $PM-back-1;
 
   //페이지 전체 박스
   .pageBox{
@@ -15,21 +9,6 @@
     padding: 20px 15px 40px 15px;
     border-radius: $border-radius04;
     background-color: $PM-white;
-
-    //카테고리 박스
-    .categoryBox{
-      border: 2px solid #D6E4E5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 30%;
-      .categoryTxt{
-        position: relative;
-        display: inline-block;
-        color: $PM-gray;
-        margin: 0;
-      }
-    }
 
     //게시글 박스
     .reviewAboutPostBox{
@@ -75,30 +54,7 @@
       }
       p { width: 100%; }
     }
-    //리뷰 박스 크기
-    // .reviewCreateBox{height: 30vh;}
-    // .reviewDetailBox{height: 10vh;}
-
-    //리뷰 작성 버튼 박스
-    // .reviewAddBtnBox{
-    //   display: flex;
-    //   justify-content: flex-end;
-    //   margin-top: 1rem;
-    //   margin-bottom: 1rem;
-    //   .reviewAddBtn{
-    //     cursor: pointer;
-    //     padding: 5px 15px;
-    //     border: 1px solid $PM-gray;
-    //     border-radius: $border-radius01;
-    //     background: $PM-white;
-    //     font-size: $font-size-sm;
-    //     color: $PM-gray;
-    //   }
-    //   .reviewAddBtn:hover{
-    //     background: $PM-gray;
-    //     color: $PM-white;
-    //   }
-    // }
+    
     // 리뷰 조회
     .reviewBox {
       margin-top: 15px;

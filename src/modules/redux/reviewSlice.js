@@ -48,30 +48,6 @@ export const detailReview = createAsyncThunk(
 
 
 // 수정
-// export const updateFile = createAsyncThunk(
-//   "file/update",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const response = await instance.put(`/file/update/${payload.reviewId}`, payload.data);
-//       const filedata = response.data.fileUrl;
-//       return thunkAPI.fulfillWithValue(filedata);
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e);
-//     }
-//   }
-// );
-// export const updateReview = createAsyncThunk(
-//   "review/update/",
-//   async (payload, thunkAPI) => {
-//     try{
-//       const response  = await instance.put(`/review/update/${payload.postId}`, payload.data);
-//       const data = response.data.reviewContent;
-//       return thunkAPI.fulfillWithValue(data);
-//     } catch(e){
-//       return thunkAPI.rejectWithValue(e);
-//     }
-//   }
-// );
 export const updateReview = createAsyncThunk(
   "review/update",
   async (payload, thunkAPI) => {
@@ -124,18 +100,6 @@ export const reviewSlice = createSlice({
       .addCase(detailReview.rejected, (state) => {
         state.isLoading = false;
       })
-    // builder
-    //   .addCase(updateReview.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(updateReview.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.review = action.payload;
-    //   })
-    //   .addCase(updateReview.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.error = action.payload;
-    //   })
   }
 }); 
 

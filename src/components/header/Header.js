@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./css/headerStyle.scss";
 import { MdPermIdentity } from "react-icons/md";
-import { getCookie } from "../cookie/cookie";
+import { getCookie, removeCookie } from "../cookie/cookie";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,6 +17,8 @@ const Header = () => {
 
   const logoutHandler = () => {
       dispatch(logout());
+      removeCookie("refreshtoken");
+      localStorage.removeItem("accesstoken");
       navigate('/');
   }
 
