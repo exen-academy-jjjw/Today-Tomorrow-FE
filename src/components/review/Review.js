@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../header/Header.js";
 import { createReview } from "../../modules/redux/reviewSlice";
-import ReviewpageFooter from "./ReviewpageFooter";
 
 
 function Review(){
@@ -99,7 +98,6 @@ function Review(){
             </div>
           </form>
         </div>
-        <ReviewpageFooter />
       </div>
     </>
   )
