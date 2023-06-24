@@ -38,7 +38,6 @@ export const detailReview = createAsyncThunk(
     try {
       const response = await instance.get(`/review/detail/${postId}`
       );
-      console.log("조회 데이터: ", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -52,16 +51,11 @@ export const updateReview = createAsyncThunk(
   "review/update",
   async (payload, thunkAPI) => {
     try {
-      console.log("수정 payload: ", payload.total)
-      console.log("postId: ", payload.postId)
       const response = await instance.put(`/review/update/${payload.postId}`, payload.total, {
         headers: {
           "Content-Type": "multipart/form-data" 
         },
       });
-      console.log("수정 데이터: ", response.total)
-      console.log("수정 payload.total : ", payload.total)
-
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);

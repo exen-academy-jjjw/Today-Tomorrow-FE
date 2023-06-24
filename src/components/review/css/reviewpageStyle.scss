@@ -9,53 +9,6 @@
     padding: 20px 15px 40px 15px;
     border-radius: $border-radius04;
     background-color: $PM-white;
-
-    //게시글 박스
-    .reviewAboutPostBox{
-      margin-top: 1rem;
-      height: 20vh;
-      display: contents; 
-      width: 90%;
-      // justify-content: space-between;
-      .fileBox{
-        border: 2px solid $PM-tone-1;
-        display: flex; 
-        // display: inherit;
-        // max-height: 100%;
-        width: 100%;
-        overflow-x: scroll;
-        .file{
-          cursor: pointer;  
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 60px;
-          font-size: 0.3rem;
-        }
-        .imgBox{
-          position: relative;
-          .imgBtn{  
-            position: absolute;
-            top: 0;
-            right: 0;
-          }
-        }
-      }
-    }
-
-    //리뷰 작성, 상세보기 박스
-    .reviewCreateBox {
-      margin-top: 1rem;
-      display: flex;
-      height: 30vh;
-      .review{
-        padding: 5px;
-        width: 100%;
-        border: 1px solid $PM-gray;
-      }
-      p { width: 100%; }
-    }
-    
-    // 리뷰 조회
     .reviewBox {
       margin-top: 15px;
       margin-left: 15px;
@@ -63,36 +16,50 @@
       border: 1px solid $PM-skyblue;
       padding: 10px;
       border-radius: $border-radius01;
+      overflow: hidden;
       .fileBox {
         display: flex; 
         border: 2px solid $PM-tone-1;
-        width: 100%;
         overflow-x: scroll;
         .file{
           cursor: pointer;  
-          overflow: hidden;
           text-overflow: ellipsis;
-          width: 60px;
           font-size: 0.3rem;
+          width: 100%;
         }
-        .imgBox {
-          position: relative;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          .imgBtn{  
-            position: absolute;
-            top: 0;
-            right: 0;
+        .imgBg {         
+          .imgBox {
+            position: relative;
+            text-overflow: ellipsis;
+            .imgBtn{  
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+            img { margin-inline: 1px; }
           }
-          img { margin-inline: 1px; }
         }
       }
+
+      .reviewCreateBox {
+        margin-top: 1rem;
+        display: flex;
+        height: 30vh;
+        .review{
+          padding: 5px;
+          width: 100%;
+          border: 1px solid $PM-gray;
+        }
+        p { width: 100%; }
+      }
+
       .reviewDetailBox {
         height: 10vh;
         margin-top: 1rem;
         display: flex;
         p { width: 100%; }
       }
+
       .reviewAddBtnBox {
         display: flex;
         justify-content: flex-end;
@@ -111,11 +78,9 @@
           &:hover {
             background: $PM-blue;
             color: $PM-white;
+          }
         }
-        }
-       
       } 
     }
-   
   }
 }
