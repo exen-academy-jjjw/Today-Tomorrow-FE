@@ -2,17 +2,15 @@
 
 //페이지 배경
 .pageBg{
-
   //페이지 전체 박스
   .pageBox{
     margin: 20px;
     padding: 20px 15px 40px 15px;
     border-radius: $border-radius04;
     background-color: $PM-white;
+    
     .reviewBox {
-      margin-top: 15px;
-      margin-left: 15px;
-      margin-right: 15px;
+      margin: 15px 15px 0 15px;
       border: 1px solid $PM-skyblue;
       padding: 10px;
       border-radius: $border-radius01;
