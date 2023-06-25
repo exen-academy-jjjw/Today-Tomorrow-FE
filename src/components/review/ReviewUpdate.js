@@ -16,7 +16,6 @@ function ReviewUpdate(){
   // 리뷰
   const [data, setData] = useState("");
 
-
   useEffect(() => {
     async function detailData() {
         const response = await dispatch(detailReview(postId));
@@ -36,17 +35,7 @@ function ReviewUpdate(){
   const onSubmitHandler = async(e) => {
     e.preventDefault();
     const formData = new FormData();
-    // for (let i = 0; i <image.length; i++) {
-    //  formData.append("fileUrl", image[i]);
-    //  console.log("수정전 Url:", image[i] );
-
-    // }
-    // for (let i = 0; i < image.length; i++) {
-    //   formData.append("fileUrl", image[i]);
-    //   console.log("수정 Url:", image[i] );
-    // }
     formData.append("reviewContent", data);
-    console.log("데이터:", data );
 
     try {
       await dispatch(updateReview({ postId, total: formData }));
@@ -64,17 +53,19 @@ function ReviewUpdate(){
         <div className="pageBox">
           <form onSubmit={onSubmitHandler}>
             <div className="reviewBox">
+            {image.length === 0 ? null :
+              <>
               <div className="fileBox">
-                {/* <input type="file" className="file" id="fileTxt" name="fileUrl" multiple readOnly/> */}
-                {image.map((img, index) => (
-                  <div className="imgBg" key={index}>
-                    <div className="imgBox">
-                        <img src={img} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
-                    </div>
+              {image.map((img, index) => (
+                <div className="imgBg" key={index}>
+                  <div className="imgBox">
+                    <img src={img} alt={`Image ${index}`} style={{ height: "13vh" ,minWidth: "10vw" }} />
                   </div>
-                ))}
-
+                </div>
+              ))} 
               </div>
+              </>
+            }
               <div className="reviewCreateBox" >
                 <textarea className="review" placeholder="리뷰 작성" name="reviewContent" value={data} onChange={handleContentChange}/>
               </div>  
