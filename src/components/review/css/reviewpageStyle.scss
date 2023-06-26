@@ -17,7 +17,8 @@
       overflow: hidden;
       .fileBox {
         display: flex; 
-        border: 2px solid $PM-tone-1;
+        border: 2px solid $PM-skyblue;
+        border-radius: $border-radius01;
         overflow-x: scroll;
         .file{
           cursor: pointer;  
@@ -52,23 +53,26 @@
       }
 
       .reviewDetailBox {
+        white-space: pre-wrap;
         height: 10vh;
-        margin-top: 1rem;
+        // margin-top: 1rem;
         display: flex;
-        p { width: 100%; }
+        p { 
+          width: 100%; 
+          margin: 1rem 0 0 0;
+        }
       }
 
       .reviewAddBtnBox {
         display: flex;
         justify-content: flex-end;
-        margin-top: 0.3rem;
-        margin-bottom: 0.5rem;
-        margin-right: 10px;
+        margin: 0.3rem 0 0.5rem 0;
+        // margin-right: 10px;
         .reviewAddBtn {
           cursor: pointer;
           align-self: flex-end;
           margin-top: 15px;
-          margin-right: 5px;
+          margin-left: 5px;
           padding: 5px 10px;
           border: 2px solid $PM-skyblue;
           background: $PM-white;
