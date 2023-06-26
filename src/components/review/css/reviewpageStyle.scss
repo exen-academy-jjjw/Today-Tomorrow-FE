@@ -17,9 +17,9 @@
       overflow: hidden;
       .fileBox {
         display: flex; 
-        border: 2px solid $PM-skyblue;
-        border-radius: $border-radius01;
         overflow-x: scroll;
+        // border: 2px solid $PM-skyblue;
+        // border-radius: $border-radius01;
         .file{
           cursor: pointer;  
           text-overflow: ellipsis;
@@ -31,20 +31,38 @@
             position: relative;
             text-overflow: ellipsis;
             .imgBtn{  
+              cursor: pointer;
+              border: none;
+              background: none;
+              color: $PM-gray;
               position: absolute;
               top: 0;
               right: 0;
+              &:hover {
+                background: $PM-blue;
+                color: $PM-white;
+              }
             }
             img { margin-inline: 1px; }
           }
         }
+      }
+      ::-webkit-scrollbar {
+        height: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient($PM-blue, $PM-skyblue);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-track {
+
       }
 
       .reviewCreateBox {
         margin-top: 1rem;
         display: flex;
         height: 30vh;
-        .review{
+        .review {
           padding: 5px;
           width: 100%;
           border: 1px solid $PM-gray;
