@@ -39,7 +39,7 @@
         }
     }
 
-    .titleAndContent, .reviewDetailBox {
+    .titleAndContent {
         white-space: pre-wrap;
     }
 
@@ -51,27 +51,6 @@
         padding: 10px;
         border-radius: $border-radius01;
     }
-
-    // // 추가
-    // .reviewBox {
-    //     margin-top: 15px;
-    //     margin-left: 15px;
-    //     margin-right: 15px;
-    //     border: 1px solid $PM-skyblue;
-    //     padding: 10px;
-    //     border-radius: $border-radius01;
-    //     .fileBox {
-    //         display: flex; 
-    //         width: 100%;
-    //         overflow-x: scroll;
-    //         .imgBox {
-    //             overflow: hidden;
-    //             text-overflow: ellipsis;
-    //             img { margin-inline: 1px; }
-    //         }
-    //     }
-    // }
-    // // --- //
 
     .reviewCreateBtn {
         align-self: flex-end;
@@ -88,6 +67,4 @@
             color: $PM-white;
         }
     }
-
-
 }
