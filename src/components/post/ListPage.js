@@ -22,7 +22,7 @@ const ListPage = () => {
   const fetch = useCallback(async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/post/list?page=${page.current}&size=7`
+        `http://localhost:8080/post/list?page=${page.current}&size=10`
       );
       const postData = data.map((item) => ({
         ...item,
@@ -30,7 +30,7 @@ const ListPage = () => {
       }));
       
       setData((prevData) => [...prevData, ...postData]);
-      setHasNextPage(data.length === 7);
+      setHasNextPage(data.length === 10);
       if (data.length) {
         page.current += 1;
       }
@@ -69,13 +69,13 @@ const ListPage = () => {
   const handleCategoryClick = (category) => {
     page.current = 0;
     setData([]);
-    navigate(`/post/list/${category}?page=${page.current}&size=7`);
+    navigate(`/post/list/${category}?page=${page.current}&size=10`);
   };
 
   const handleAllPostsClick = () => {
     page.current = 0;
     setData([]);
-    navigate(`/post/list?page=${page.current}&size=7`);
+    window.location.href = `/post/list?page=${page.current}&size=10`;
   };
 
   const handleCheckboxClick = async (postId) => {
