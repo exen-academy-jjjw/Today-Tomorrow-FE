@@ -35,7 +35,9 @@ function ReviewDetail(){
   return (
     <>
       <div className="reviewBox">
-        <div className="fileBox">
+        {image.length === 0 ? null :
+        <>
+         <div className="fileBox">
             {image.map((img, index) => (
               <div className="imgBg" key={index}>
                 <div className="imgBox">
@@ -44,6 +46,9 @@ function ReviewDetail(){
               </div>
             ))} 
         </div>
+        </>
+        }
+       
         <div className="reviewDetailBox">
           <p>{data}</p>
         </div>  
