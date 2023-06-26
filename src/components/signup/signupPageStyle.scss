@@ -1,3 +1,5 @@
+@import "/src/assets/style.scss";
+
 //페이지 배경
 .signupBg {
     position: relative;
@@ -6,16 +8,27 @@
     margin: auto;
     border: 1px solid #9BA4B5;
     background-color: #dfe6ed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   
     //페이지 전체 박스
     .signupBox {
-      margin: 20px;
-      padding: 40px 15px;
-      border-radius: 20px;
-      background-color: #fff;
+      width: 90%;
+      max-width: 480px;
+      height: 90vh;
+      padding-bottom: 30px;
+      border-radius: $border-radius04;
+      background-color: $PM-white;
+      margin: auto;
+    
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
       h2 {
-        margin-top: 50px;
         text-align: center;
       }
 

@@ -115,13 +115,13 @@ const CategoryListPage = () => {
   const handleCategoryClick = (category) => {
     page.current = 0;
     setData([]);
-    navigate(`/post/list/${category}?page=${page.current}&size=7`);
+    navigate(`/post/list/${category}?page=${page.current}&size=10`);
   };
 
   const handleAllPostsClick = () => {
     page.current = 0;
     setData([]);
-    navigate(`/post/list?page=${page.current}&size=7`);
+    navigate(`/post/list?page=${page.current}&size=10`);
   };
 
   const postCreateHandler = () => {

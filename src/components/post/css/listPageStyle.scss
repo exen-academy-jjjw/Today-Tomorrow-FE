@@ -44,15 +44,19 @@
     padding: 3.5vh 15px;
     background-color: $PM-white;
     gap: 15px;
+
+    span {
+        cursor: pointer;
+    }
 }
 
 .addBtn {
     display: flex;
     justify-content: flex-end;
-    margin-top: 1rem;
-    margin-right: 1.5rem;
+    margin-top: 2rem;
+    margin-right: 0.1rem;
 
-    position: absolute;
+    position:relative;
     bottom: 1rem;
     right: 1rem;
 
@@ -61,7 +65,7 @@
         border-radius: $border-radius01;
         background: $PM-white;
         cursor: pointer;
-        font-size: $font-size-sm2;
+        font-size: $font-size-sm;
         padding : 4px;
 
         :first-child {
