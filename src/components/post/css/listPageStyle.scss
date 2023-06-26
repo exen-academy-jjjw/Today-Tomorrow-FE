@@ -61,16 +61,18 @@
     right: 1rem;
 
     :first-child {
-        border: 2px solid $PM-skyblue;
+        // border: 2px solid $PM-skyblue;
+        border: 2px solid #cfe0fd;
         border-radius: $border-radius01;
         background: $PM-white;
         cursor: pointer;
         font-size: $font-size-sm;
-        padding : 4px;
+        padding: 5px 10px;
 
-        :first-child {
-            border: none;
-            font-size: $font-size-sm;
+        
+        &:hover {
+            background: $PM-blue;
         }
+
     }
 }

@@ -141,7 +141,7 @@ const ListPage = () => {
         </div>
         <div className="addBtn">
           <button onClick={postCreateHandler}>
-            <span>add</span>
+            add
           </button>
         </div>
       </div>
