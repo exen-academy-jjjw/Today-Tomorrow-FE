@@ -10,16 +10,13 @@
     background-color: $PM-white;
     
     .reviewBox {
-      margin: 15px 15px 0 15px;
-      border: 1px solid $PM-skyblue;
+      margin: 15px 5px 0 5px;
       padding: 10px;
       border-radius: $border-radius01;
       overflow: hidden;
       .fileBox {
         display: flex; 
         overflow-x: scroll;
-        // border: 2px solid $PM-skyblue;
-        // border-radius: $border-radius01;
         .file{
           cursor: pointer;  
           text-overflow: ellipsis;
