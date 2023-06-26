@@ -26,14 +26,18 @@ function ReviewDetail(){
   const deleteHandler = async (e) => {
     e.preventDefault();
     dispatch(deleteReview(postId));
-    navigate(`/post/detail/${postId}`);
+    // navigate가 안되서 window.location.reload로 변경
+    window.location.reload();
+    // navigate(`/post/detail/${postId}`);
   };
  
   console.log(data);
   return (
     <>
       <div className="reviewBox">
-        <div className="fileBox">
+        {image.length === 0 ? null :
+        <>
+         <div className="fileBox">
             {image.map((img, index) => (
               <div className="imgBg" key={index}>
                 <div className="imgBox">
@@ -42,6 +46,8 @@ function ReviewDetail(){
               </div>
             ))} 
         </div>
+        </>
+        }
         <div className="reviewDetailBox">
           <p>{data}</p>
         </div>  

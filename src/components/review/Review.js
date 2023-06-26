@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../header/Header.js";
 import { createReview } from "../../modules/redux/reviewSlice";
-import ReviewpageFooter from "./ReviewpageFooter";
 
 
 function Review(){
@@ -15,9 +14,6 @@ function Review(){
   // 이미지
   const [image, setImage] = useState([]);
   const [fileImage, setFileImage] = useState([]);
-
-
-  console.log("작성 값: ",image );
 
   // 리뷰
   const [data, setData] = useState("");
@@ -82,7 +78,7 @@ function Review(){
           <form onSubmit={onSubmitHandler}>
             <div className="reviewBox">
               <div className="fileBox">
-                <input type="file" className="file" id="fileTxt" name="fileUrl" multiple onChange={onChangeImg}/>
+                <input type="file" className="file" id="fileTxt" name="fileUrl" multiple onChange={onChangeImg} />
                 <br />
                 {image.map((img, index) => (
                   <div className="imgBg" key={index}>
@@ -102,7 +98,6 @@ function Review(){
             </div>
           </form>
         </div>
-        <ReviewpageFooter />
       </div>
     </>
   )
