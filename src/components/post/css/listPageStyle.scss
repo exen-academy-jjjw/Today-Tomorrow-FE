@@ -44,29 +44,35 @@
     padding: 3.5vh 15px;
     background-color: $PM-white;
     gap: 15px;
+
+    span {
+        cursor: pointer;
+    }
 }
 
 .addBtn {
     display: flex;
     justify-content: flex-end;
-    margin-top: 1rem;
-    margin-right: 1.5rem;
+    margin-top: 2rem;
+    margin-right: 0.1rem;
 
-    position: absolute;
+    position:relative;
     bottom: 1rem;
     right: 1rem;
 
     :first-child {
-        border: 2px solid $PM-skyblue;
+        // border: 2px solid $PM-skyblue;
+        border: 2px solid #cfe0fd;
         border-radius: $border-radius01;
         background: $PM-white;
         cursor: pointer;
-        font-size: $font-size-sm2;
-        padding : 4px;
+        font-size: $font-size-sm;
+        padding: 5px 10px;
 
-        :first-child {
-            border: none;
-            font-size: $font-size-sm;
+        
+        &:hover {
+            background: $PM-blue;
         }
+
     }
 }

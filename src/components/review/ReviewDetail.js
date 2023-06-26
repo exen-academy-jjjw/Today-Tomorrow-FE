@@ -37,15 +37,15 @@ function ReviewDetail(){
       <div className="reviewBox">
         {image.length === 0 ? null :
           <>
-          <div className="fileBox">
-          {image.map((img, index) => (
-            <div className="imgBg" key={index}>
-              <div className="imgBox">
-                <img src={img} alt={`Image ${index}`} style={{ height: "13vh" ,minWidth: "10vw" }} />
-              </div>
+            <div className="fileBox">
+              {image.map((img, index) => (
+                <div className="imgBg" key={index}>
+                  <div className="imgBox">
+                    <img src={img} alt={`Image ${index}`} style={{ height: "13vh" ,minWidth: "10vw" }} />
+                  </div>
+                </div>
+              ))} 
             </div>
-          ))} 
-          </div>
           </>
         }
         <div className="reviewDetailBox">

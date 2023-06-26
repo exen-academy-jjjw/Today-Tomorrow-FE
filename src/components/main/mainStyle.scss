@@ -8,25 +8,39 @@
     margin: auto;
     border : 1px solid $PM-gray;
     background-color: #dfe6ed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   
     //메인페이지 전체 박스
     .mainBox {
-      margin: 20px;
-      padding: 40px 15px;
+      width: 90%;
+      max-width: 480px;
+      height: 90vh;
+      padding-bottom: 30px;
       border-radius: $border-radius04;
       background-color: $PM-white;
+      margin: auto;
+    
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
 
       //메인 제목 부분
       .mainTitle {
         margin-top: 50px;
         display: flex;
         justify-content: center;
+        font-size: 1.8rem;
 
         //바구니 아이콘
         #icon {
-          margin-top: 16px;
+          margin-bottom: 16px;
           color: orange;
-          font-size: 2.5rem;
+          font-size: 4rem;
           margin-right: 0.5rem;
         }
       }
