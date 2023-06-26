@@ -36,7 +36,7 @@ const CategoryListPage = () => {
       const nextPage = page.current + 1;
 
       const { data } = await axios.get(
-        `http://localhost:8080/post/list/${category}?page=${page.current}&size=10`
+        `http://localhost:8080/post/list/${category}?page=${page.current}&size=7`
       );
 
       if (data && Array.isArray(data)) {
@@ -51,7 +51,7 @@ const CategoryListPage = () => {
         });
       }
 
-      setHasNextPage(data.length === 10);
+      setHasNextPage(data.length === 7);
       page.current = nextPage;
       setIsLoading(false);
     } catch (err) {
@@ -115,13 +115,13 @@ const CategoryListPage = () => {
   const handleCategoryClick = (category) => {
     page.current = 0;
     setData([]);
-    navigate(`/post/list/${category}?page=${page.current}&size=10`);
+    navigate(`/post/list/${category}?page=${page.current}&size=7`);
   };
 
   const handleAllPostsClick = () => {
     page.current = 0;
     setData([]);
-    navigate(`/post/list?page=${page.current}&size=10`);
+    navigate(`/post/list?page=${page.current}&size=7`);
   };
 
   const postCreateHandler = () => {
