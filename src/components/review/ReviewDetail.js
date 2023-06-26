@@ -48,7 +48,6 @@ function ReviewDetail(){
         </div>
         </>
         }
-       
         <div className="reviewDetailBox">
           <p>{data}</p>
         </div>  

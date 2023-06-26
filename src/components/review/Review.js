@@ -78,7 +78,7 @@ function Review(){
           <form onSubmit={onSubmitHandler}>
             <div className="reviewBox">
               <div className="fileBox">
-                <input type="file" className="file" id="fileTxt" name="fileUrl" multiple onChange={onChangeImg}/>
+                <input type="file" className="file" id="fileTxt" name="fileUrl" multiple onChange={onChangeImg} />
                 <br />
                 {image.map((img, index) => (
                   <div className="imgBg" key={index}>
