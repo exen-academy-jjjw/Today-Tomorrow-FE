@@ -2,12 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UnregisterModal from "../modal/UnregisterModal";
+import { useDispatch } from "react-redux";
+import { memberDelete } from "../../modules/redux/myPageSlice";
 
 import "./css/mypageStyle.scss";
 import { useEffect } from "react";
 
 const Unregister = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [password, setPassword] = useState();
   const [unregisterModal, setUnregisterModal] = useState(false);
   const [modalBg, setModalBg] = useState(false);

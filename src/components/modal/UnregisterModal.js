@@ -13,7 +13,6 @@ const UnregisterModal = ({ openCloseModal, password, setPassword }) => {
     },
     navigate : navigate
   }
-  console.log(password);
 
   const memberOut = () => {
     dispatch(memberDelete(payload));
