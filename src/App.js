@@ -1,6 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Main from "./components/main/Main";
+import ExitBeforeMainin from "./components/main/ExitBeforeMain.js";
 import SignupPage from "./components/signup/SignupPage";
 import LoginPage from "./components/login/LoginPage";
 import ListPage from "./components/post/ListPage";
@@ -23,9 +24,10 @@ function App() {
       <Routes>
         <Route path="/member/signup" element={<SignupPage />} />
         <Route path="/member/login" element={<LoginPage />} />
+        <Route path="/" element={<ExitBeforeMainin />} />
 
         <Route element={<PrivateRouteTwo />}>
-          <Route path="/" element={<Main />} />
+          <Route path="/main" element={<Main />} />
         </Route>
 
         <Route element={<PrivateRoute />}>
