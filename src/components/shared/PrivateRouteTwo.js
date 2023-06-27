@@ -5,7 +5,7 @@ export const PrivateRouteTwo = () => {
   const access = getCookie('refreshtoken');
   const path = window.location.pathname;
 
-  if (access && path === '/') {
+  if (access && path === '/main') {
     return <Navigate to="/post/list" replace />;
   }
 
