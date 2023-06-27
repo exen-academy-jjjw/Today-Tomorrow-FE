@@ -56,10 +56,8 @@ const initialState = {
   export const memberDelete = createAsyncThunk(
     "member/delete",
     async (payload, thunkAPI) => {
-        console.log(payload);
         try {
             const response = await axios.post('http://localhost:8080/member/delete', payload.data);
-            console.log(response);
             if(response.data === 200) {
                 window.alert("회원탈퇴가 완료됐습니다");
                 removeCookie("nickname");
