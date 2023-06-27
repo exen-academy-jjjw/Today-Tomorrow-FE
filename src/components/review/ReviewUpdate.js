@@ -4,37 +4,57 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../header/Header.js";
 import { updateReview, detailReview } from "../../modules/redux/reviewSlice";
+import Dropzone from "react-dropzone";
 
-function ReviewUpdate(){
+function ReviewUpdate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { postId } = useParams();
 
-  // 이미지
   const [image, setImage] = useState([]);
-
-  // 리뷰
   const [data, setData] = useState("");
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     async function detailData() {
-        const response = await dispatch(detailReview(postId));
-        setData(response.payload.reviewContent);
-        setImage(response.payload.fileUrlList);
-      }
+      const response = await dispatch(detailReview(postId));
+      setData(response.payload.reviewContent);
+      setImage(response.payload.fileUrlList);
+      setImages(response.payload.fileUrlList);
+    }
     detailData();
   }, [dispatch, postId]);
 
-  // 리뷰 수정
+  const handleDrop = (acceptedFiles) => {
+    const newImages = acceptedFiles.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file)
+    }));
+    
+    //이미지 개수 최대 3개까지 등록가능
+    if (images.length + newImages.length <= 3) {
+      setImages((prevImages) => [...prevImages, ...newImages]);
+    } else {
+      window.alert("이미지는 최대 3개까지 등록 가능합니다.");
+    }
+  };
+
+  const handleDeleteImage = (index) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
+  };
+  
   const handleContentChange = (e) => {
     setData(e.target.value);
   };
 
-
-  // 이미지 및 리뷰 수정
-  const onSubmitHandler = async(e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+    for (let i = 0; i < images.length; i++) {
+      formData.append("fileUrl", images[i].file);
+    }
     formData.append("reviewContent", data);
 
     try {
@@ -47,28 +67,34 @@ function ReviewUpdate(){
 
   return (
     <>
-      <div className="pageBg" >
-      <Header />
-        <br/> 
+      <div className="pageBg">
+        <Header />
+        <br />
         <div className="pageBox">
           <form onSubmit={onSubmitHandler}>
             <div className="reviewBox">
-            {image.length === 0 ? null :
-              <>
               <div className="fileBox">
-              {image.map((img, index) => (
-                <div className="imgBg" key={index}>
-                  <div className="imgBox">
-                    <img src={img} alt={`Image ${index}`} style={{ height: "13vh" ,minWidth: "10vw" }} />
+                <Dropzone onDrop={handleDrop}>
+                  {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <button type="button">Image</button>
+                    </div>
+                  )}
+                </Dropzone>
+                <br />
+                {images.map((img, index) => (
+                  <div className="imgBg" key={index}>
+                    <div className="imgBox">
+                      <img src={img.preview || img} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
+                      <button type="button" className="imgBtn" onClick={() => handleDeleteImage(index)} > X </button>
+                    </div>
                   </div>
-                </div>
-              ))} 
+                ))}
               </div>
-              </>
-            }
-              <div className="reviewCreateBox" >
-                <textarea className="review" placeholder="리뷰 작성" name="reviewContent" value={data} onChange={handleContentChange}/>
-              </div>  
+              <div className="reviewCreateBox">
+                <textarea className="review" placeholder="리뷰 작성" name="reviewContent" value={data} onChange={handleContentChange} />
+              </div>
               <div className="reviewAddBtnBox">
                 <button className="reviewAddBtn">Review update</button>
               </div>
@@ -77,7 +103,7 @@ function ReviewUpdate(){
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default ReviewUpdate;

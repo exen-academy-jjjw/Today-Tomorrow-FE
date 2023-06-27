@@ -38,6 +38,7 @@ export const detailReview = createAsyncThunk(
     try {
       const response = await instance.get(`/review/detail/${postId}`
       );
+      console.log("조회: ", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -56,6 +57,9 @@ export const updateReview = createAsyncThunk(
           "Content-Type": "multipart/form-data" 
         },
       });
+      console.log("이미지: ", response);
+      console.log("payload.total: ", payload.total);
+      
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
