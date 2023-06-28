@@ -39,13 +39,7 @@ export const logout =  createAsyncThunk(
     try{
       await axios.get('http://localhost:8080/member/logout');
 
-      if(getCookie('refreshtoken') || localStorage.getItem('accesstoken')) {
-        removeCookie("nickname");
-        removeCookie("refreshtoken");
-        localStorage.removeItem("accesstoken");
-      }
-      
-      return thunkAPI.fulfillWithValue(null);
+      return thunkAPI.fulfillWithValue(payload);
     } catch(e){
       return thunkAPI.rejectWithValue(e);
     }
@@ -79,6 +73,10 @@ export const loginSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state, action) => {
         state.isLoggedIn = false;
+
+        removeCookie("refreshtoken");
+        removeCookie("nickname");
+        localStorage.removeItem("accesstoken");
       })
       .addCase(logout.rejected, (state,action) => {
         state.isLoading = false;
