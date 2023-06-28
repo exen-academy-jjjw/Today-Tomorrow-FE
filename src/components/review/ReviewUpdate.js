@@ -37,15 +37,15 @@ function ReviewUpdate() {
     }
   };
 
-  // const handleDeleteImage = (index) => {
-  //   const newImages = [...images];
-  //   newImages.splice(index, 1);
-  //   setImages(newImages);
-  // };
-  const handleDeleteImage = async (index) => {
+  const handleDeleteImage = (index) => {
     const newImages = [...images];
-    const deletedImage = newImages.splice(index, 1)[0];
+    newImages.splice(index, 1);
     setImages(newImages);
+  };
+  // const handleDeleteImage = async (index) => {
+  //   const newImages = [...images];
+  //   const deletedImage = newImages.splice(index, 1)[0];
+  //   setImages(newImages);
     
     // 이미지 삭제를 서버에 요청
     // try {
@@ -54,7 +54,7 @@ function ReviewUpdate() {
     // } catch (error) {
     //   console.log("이미지 삭제 실패:", error);
     // }
-  };
+  // };
 
 
   const handleContentChange = (e) => {
@@ -62,8 +62,10 @@ function ReviewUpdate() {
   };
 
   const onSubmitHandler = async (e) => {
+    console.log(e);
     e.preventDefault();
     const formData = new FormData();
+
     for (let i = 0; i < images.length; i++) {
       formData.append("fileUrl", images[i].file);
     }

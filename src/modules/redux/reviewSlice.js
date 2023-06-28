@@ -38,6 +38,7 @@ export const detailReview = createAsyncThunk(
     try {
       const response = await instance.get(`/review/detail/${postId}`
       );
+      console.log("조회: ", response.data)
       return thunkAPI.fulfillWithValue(response.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
