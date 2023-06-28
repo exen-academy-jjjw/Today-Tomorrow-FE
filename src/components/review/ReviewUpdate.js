@@ -13,6 +13,7 @@ function ReviewUpdate() {
 
   const [data, setData] = useState("");
   const [images, setImages] = useState([]);
+  const [formData, setFormData] = useState(new FormData());
 
   useEffect(() => {
     async function detailData() {
@@ -23,62 +24,88 @@ function ReviewUpdate() {
     detailData();
   }, [dispatch, postId]);
 
+  // const handleDrop = (acceptedFiles) => {
+  //   const newImages = acceptedFiles.map((file) => ({
+  //     file,
+  //     preview: URL.createObjectURL(file)
+  //   }));
+    
+  //   //이미지 개수 최대 3개까지 등록가능
+  //   if (images.length + newImages.length <= 3) {
+  //     setImages((prevImages) => [...prevImages, ...newImages]);
+  //   } else {
+  //     window.alert("이미지는 최대 3개까지 등록 가능합니다.");
+  //   }
+  // };
+
   const handleDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) => ({
       file,
       preview: URL.createObjectURL(file)
     }));
-    
-    //이미지 개수 최대 3개까지 등록가능
+  
+    // 이미지 개수 최대 3개까지 등록 가능
     if (images.length + newImages.length <= 3) {
       setImages((prevImages) => [...prevImages, ...newImages]);
+  
+      // formData에 이미지 파일 추가
+      const formDataCopy = new FormData(formData);
+      for (let i = 0; i < newImages.length; i++) {
+        formDataCopy.append("fileUrl", newImages[i].file);
+      }
+      setFormData(formDataCopy);
     } else {
       window.alert("이미지는 최대 3개까지 등록 가능합니다.");
     }
   };
 
+
+
   const handleDeleteImage = (index) => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
+
+
+
+
+    // formData에서도 삭제된 이미지 제거
+    const formDataCopy = new FormData();
+    for (let i = 0; i < newImages.length; i++) {
+      formDataCopy.append("fileUrl", newImages[i].file);
+    }
+    formDataCopy.append("reviewContent", data);
+    setFormData(formDataCopy);
+
   };
-  // const handleDeleteImage = async (index) => {
-  //   const newImages = [...images];
-  //   const deletedImage = newImages.splice(index, 1)[0];
-  //   setImages(newImages);
-    
-    // 이미지 삭제를 서버에 요청
-    // try {
-    //   await axios.delete(`/api/images/${deletedImage.id}`); // 이미지 식별자(id)를 전달하여 삭제 요청
-    //   console.log("이미지 삭제 성공");
-    // } catch (error) {
-    //   console.log("이미지 삭제 실패:", error);
-    // }
-  // };
 
-
+  // console.log("들어간 데이터: ", images);
   const handleContentChange = (e) => {
     setData(e.target.value);
   };
 
   const onSubmitHandler = async (e) => {
-    console.log(e);
     e.preventDefault();
     const formData = new FormData();
-
-    for (let i = 0; i < images.length; i++) {
-      formData.append("fileUrl", images[i].file);
-    }
+  
+    // // 이미지 파일 추가
+    // for (let i = 0; i < images.length; i++) {
+    //   formData.append("fileUrl", images[i].file);
+    // }
+  
+    // 리뷰 내용 추가
     formData.append("reviewContent", data);
-
+  
     try {
-      console.log("폼데이터: ", formData);
+      console.log("폼데이터 : ", formData);
+
       await dispatch(updateReview({ postId, total: formData }));
       navigate(`/post/detail/${postId}`);
     } catch (error) {
       console.log("Error:", error);
     }
   };
+
 
   return (
     <>
