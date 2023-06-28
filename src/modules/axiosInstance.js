@@ -10,18 +10,20 @@ const api = axios.create({
 // 요청시
 api.interceptors.request.use(
   function (config) {
+    console.log("config ", config);
     const accessToken = localStorage.getItem("accesstoken");
+    console.log("뭐가.. 문제지..." + accessToken);
 
     //요청시 AccessToken 계속 보내주기
     if (!accessToken) {
         config.headers.authorization = accessToken;
-        // console.log("request start", config);
+        console.log("request start", config);
         return config;
     }
 
     if (config.headers && accessToken) {
         config.headers.authorization = accessToken;
-        // console.log("request start", config);
+        console.log("request start", config);
       return config;
     }
   },
@@ -35,7 +37,7 @@ api.interceptors.request.use(
 // 데이터받을 시
 api.interceptors.response.use(
   function (response) {
-    // console.log("response start", response);
+    console.log("response start", response);
     return response;
   },
   async (error) => {

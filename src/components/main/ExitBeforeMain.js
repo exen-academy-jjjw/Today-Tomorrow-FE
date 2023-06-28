@@ -12,10 +12,9 @@ function ExitBeforeMain() {
 
     useEffect(() => {
         if(localStorage.getItem("accesstoken") || (getCookie("refreshtoken") && getCookie("nickname"))) {
-            console.log(localStorage.getItem("accesstoken"));
-            console.log(getCookie("refreshtoken"));
-            dispatch(logout());
-            navigate('/main');
+            dispatch(logout()).then(() =>{
+                navigate('/main');
+            });
         } else {
             navigate('/main');
         }

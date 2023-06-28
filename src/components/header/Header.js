@@ -16,10 +16,12 @@ const Header = () => {
   const nickname = getCookie("nickname");
 
   const logoutHandler = () => {
-      dispatch(logout());
-      removeCookie("refreshtoken");
-      localStorage.removeItem("accesstoken");
-      navigate('/');
+      dispatch(logout()).then(() => {
+        // removeCookie("refreshtoken");
+        // removeCookie("nickname");
+        // localStorage.removeItem("accesstoken");
+        navigate('/main');
+      });
   }
 
 
