@@ -11,7 +11,6 @@ function ReviewUpdate() {
   const navigate = useNavigate();
   const { postId } = useParams();
 
-  const [image, setImage] = useState([]);
   const [data, setData] = useState("");
   const [images, setImages] = useState([]);
 
@@ -19,8 +18,7 @@ function ReviewUpdate() {
     async function detailData() {
       const response = await dispatch(detailReview(postId));
       setData(response.payload.reviewContent);
-      setImage(response.payload.fileUrlList);
-      setImages(response.payload.fileUrlList);
+      setImages([...response.payload.fileUrlList]);
     }
     detailData();
   }, [dispatch, postId]);
@@ -39,12 +37,26 @@ function ReviewUpdate() {
     }
   };
 
-  const handleDeleteImage = (index) => {
+  // const handleDeleteImage = (index) => {
+  //   const newImages = [...images];
+  //   newImages.splice(index, 1);
+  //   setImages(newImages);
+  // };
+  const handleDeleteImage = async (index) => {
     const newImages = [...images];
-    newImages.splice(index, 1);
+    const deletedImage = newImages.splice(index, 1)[0];
     setImages(newImages);
+    
+    // 이미지 삭제를 서버에 요청
+    // try {
+    //   await axios.delete(`/api/images/${deletedImage.id}`); // 이미지 식별자(id)를 전달하여 삭제 요청
+    //   console.log("이미지 삭제 성공");
+    // } catch (error) {
+    //   console.log("이미지 삭제 실패:", error);
+    // }
   };
-  
+
+
   const handleContentChange = (e) => {
     setData(e.target.value);
   };
@@ -58,6 +70,7 @@ function ReviewUpdate() {
     formData.append("reviewContent", data);
 
     try {
+      console.log("폼데이터: ", formData);
       await dispatch(updateReview({ postId, total: formData }));
       navigate(`/post/detail/${postId}`);
     } catch (error) {
