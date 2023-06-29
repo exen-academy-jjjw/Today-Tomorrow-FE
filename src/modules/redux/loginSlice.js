@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../axiosInstance.js";
-import { getCookie, removeCookie, setCookie } from "../../components/cookie/cookie";
+import instance from "../axiosInstance.js";
+import { removeCookie, setCookie } from "../../components/cookie/cookie";
 
 const initialState = {
   info:{},
@@ -13,7 +13,7 @@ export const postLogin = createAsyncThunk(
   async (payload, thunkAPI) => {
 
     try{
-      const data = await axios.post('http://localhost:8080/member/login', payload.loginInfo);
+      const data = await instance.post('http://localhost:8080/member/login', payload.loginInfo);
 
       if(data.headers.authorization !== null) {
         localStorage.setItem('accesstoken', data.headers.authorization);
@@ -37,7 +37,7 @@ export const logout =  createAsyncThunk(
   "member/logout",
   async (payload, thunkAPI) => {
     try{
-      await axios.get('http://localhost:8080/member/logout');
+      await instance.get('http://localhost:8080/member/logout');
 
       return thunkAPI.fulfillWithValue(payload);
     } catch(e){

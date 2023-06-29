@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../axiosInstance.js";
+import instance from "../axiosInstance.js";
 
 const initialState = {
   info:{},
@@ -11,7 +11,7 @@ const initialState = {
     "post/create",
     async (payload, thunkAPI) => {
       try{
-        const data = await axios.post('http://localhost:8080/post/create', payload);
+        const data = await instance.post('http://localhost:8080/post/create', payload);
 
         return thunkAPI.fulfillWithValue(data);
       } catch(error) {}
@@ -22,11 +22,10 @@ const initialState = {
     "post/details",
     async (postId, thunkAPI) => {
       try {
-        const response = await axios.get(`http://localhost:8080/post/detail/${postId}`);
+        const response = await instance.get(`http://localhost:8080/post/detail/${postId}`);
 
         const postData = response.data;
         const completion = postData.completion || 0;
-        // const dataWithParsedCompletion = { ...postData, completion: Number(completion) };
         const dataWithParsedCompletion = { ...postData, completion: completion };
         
         return thunkAPI.fulfillWithValue(dataWithParsedCompletion);
@@ -40,7 +39,7 @@ const initialState = {
     "post/delete",
     async (postId, thunkAPI) => {
       try{
-        const data = await axios.delete(`http://localhost:8080/post/delete/${postId}`);
+        const data = await instance.delete(`http://localhost:8080/post/delete/${postId}`);
 
         return thunkAPI.fulfillWithValue(data);
       } catch (e) {
@@ -53,7 +52,7 @@ const initialState = {
     "post/update",
     async (payload, thunkAPI) => {
       try{
-        const data = await axios.put(`http://localhost:8080/post/update/${payload.postId}`,
+        const data = await instance.put(`http://localhost:8080/post/update/${payload.postId}`,
           {
             category: payload.category,
             title: payload.title,
@@ -73,7 +72,7 @@ const initialState = {
     "post/updateCompletion",
     async ({ postId, completion }, thunkAPI) => {
       try {
-        const response = await axios.put(
+        const response = await instance.put(
           `http://localhost:8080/post/completion/${postId}`,
           { completion }
         );

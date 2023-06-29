@@ -1,4 +1,4 @@
-import {CookiesProvider} from 'react-cookie';
+import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
