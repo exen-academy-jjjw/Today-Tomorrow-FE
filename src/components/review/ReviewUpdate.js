@@ -24,88 +24,54 @@ function ReviewUpdate() {
     detailData();
   }, [dispatch, postId]);
 
-  // const handleDrop = (acceptedFiles) => {
-  //   const newImages = acceptedFiles.map((file) => ({
-  //     file,
-  //     preview: URL.createObjectURL(file)
-  //   }));
-    
-  //   //이미지 개수 최대 3개까지 등록가능
-  //   if (images.length + newImages.length <= 3) {
-  //     setImages((prevImages) => [...prevImages, ...newImages]);
-  //   } else {
-  //     window.alert("이미지는 최대 3개까지 등록 가능합니다.");
-  //   }
-  // };
-
   const handleDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) => ({
       file,
       preview: URL.createObjectURL(file)
     }));
-  
+
     // 이미지 개수 최대 3개까지 등록 가능
     if (images.length + newImages.length <= 3) {
       setImages((prevImages) => [...prevImages, ...newImages]);
-  
+
       // formData에 이미지 파일 추가
-      const formDataCopy = new FormData(formData);
+      const formDataCopy = new FormData();
       for (let i = 0; i < newImages.length; i++) {
         formDataCopy.append("fileUrl", newImages[i].file);
       }
+      formDataCopy.append("reviewContent", data);
       setFormData(formDataCopy);
     } else {
       window.alert("이미지는 최대 3개까지 등록 가능합니다.");
     }
   };
 
-
-
   const handleDeleteImage = (index) => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
 
-
-
-
-    // formData에서도 삭제된 이미지 제거
-    const formDataCopy = new FormData();
+    // formData에서 삭제된 이미지 제거
+    formData.delete("fileUrl");
     for (let i = 0; i < newImages.length; i++) {
-      formDataCopy.append("fileUrl", newImages[i].file);
+      formData.append("fileUrl", newImages[i].file);
     }
-    formDataCopy.append("reviewContent", data);
-    setFormData(formDataCopy);
-
   };
 
-  // console.log("들어간 데이터: ", images);
   const handleContentChange = (e) => {
     setData(e.target.value);
   };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-  
-    // // 이미지 파일 추가
-    // for (let i = 0; i < images.length; i++) {
-    //   formData.append("fileUrl", images[i].file);
-    // }
-  
-    // 리뷰 내용 추가
-    formData.append("reviewContent", data);
-  
+    
     try {
-      console.log("폼데이터 : ", formData);
-
       await dispatch(updateReview({ postId, total: formData }));
       navigate(`/post/detail/${postId}`);
     } catch (error) {
       console.log("Error:", error);
     }
   };
-
 
   return (
     <>
@@ -128,8 +94,14 @@ function ReviewUpdate() {
                 {images.map((img, index) => (
                   <div className="imgBg" key={index}>
                     <div className="imgBox">
-                      <img src={img.preview || img} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
-                      <button type="button" className="imgBtn" onClick={() => handleDeleteImage(index)} > X </button>
+                      {img.preview ? (
+                        <>
+                          <img src={img.preview} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
+                          <button type="button" className="imgBtn" onClick={() => handleDeleteImage(index)}> X </button>
+                        </>
+                      ) : (
+                        <img src={img} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
+                      )}
                     </div>
                   </div>
                 ))}
