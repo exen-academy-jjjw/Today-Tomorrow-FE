@@ -12,7 +12,7 @@ api.interceptors.request.use(
   function (config) {
     console.log("config ", config);
     const accessToken = localStorage.getItem("accesstoken");
-    console.log("뭐가.. 문제지..." + accessToken);
+    console.log(accessToken);
 
     //요청시 AccessToken 계속 보내주기
     if (!accessToken) {
