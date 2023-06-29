@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../axiosInstance.js";
-import { getCookie, removeCookie, setCookie } from "../../components/cookie/cookie.js";
+import instance from "../axiosInstance.js";
+import { removeCookie, setCookie } from "../../components/cookie/cookie.js";
 
 const initialState = {
   info:{},
@@ -12,7 +12,7 @@ const initialState = {
     "/mypage",
     async (payload, thunkAPI) => {
         try {
-            const response = await axios.get('http://localhost:8080/member/mypage');
+            const response = await instance.get('http://localhost:8080/member/mypage');
 
             return thunkAPI.fulfillWithValue(response.data);
         } catch (error) {
@@ -25,7 +25,7 @@ const initialState = {
     "member/update/nickname",
     async (nickname, thunkAPI) => {
         try {
-            const response = await axios.put('http://localhost:8080/member/update/nickname', {nickname});
+            const response = await instance.put('http://localhost:8080/member/update/nickname', {nickname});
             
             //response에 닉네임을 실어주는게 좋다.
             removeCookie('nickname');
@@ -44,7 +44,7 @@ const initialState = {
     async (payload, thunkAPI) => {
         console.log(payload);
         try {
-            const response = await axios.put('http://localhost:8080/member/update/password', payload);
+            const response = await instance.put('http://localhost:8080/member/update/password', payload);
 
             return thunkAPI.fulfillWithValue(response);
         } catch (error) {
@@ -57,7 +57,7 @@ const initialState = {
     "member/delete",
     async (payload, thunkAPI) => {
         try {
-            const response = await axios.post('http://localhost:8080/member/delete', payload.data);
+            const response = await instance.post('http://localhost:8080/member/delete', payload.data);
             if(response.data === 200) {
                 window.alert("회원탈퇴가 완료됐습니다");
                 removeCookie("nickname");

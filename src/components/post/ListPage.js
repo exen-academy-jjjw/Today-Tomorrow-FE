@@ -6,7 +6,7 @@ import { updateCompletion } from "../../modules/redux/postSlice.js";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import Header from '../header/Header.js';
 import "./css/listPageStyle.scss";
-import axios from "../../modules/axiosInstance.js"
+import instance from "../../modules/axiosInstance.js"
 
 import { MdFlightTakeoff, MdFavorite, MdMoreHoriz, MdOutlineLibraryAdd, MdOutlineModeEdit } from "react-icons/md";
 
@@ -21,7 +21,7 @@ const ListPage = () => {
 
   const fetch = useCallback(async () => {
     try {
-      const { data } = await axios.get(
+      const { data } = await instance.get(
         `http://localhost:8080/post/list?page=${page.current}&size=10`
       );
       const postData = data.map((item) => ({

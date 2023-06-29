@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import instance from "axios";
 
 const initialState = {
   info:{},
@@ -12,7 +12,7 @@ const initialState = {
     "mypage/getNickname",
     async (payload, thunkAPI) => {
       try{
-        const data = await axios.post('http://localhost:8080/member/signup', payload.signupInfo);
+        const data = await instance.post('http://localhost:8080/member/signup', payload.signupInfo);
         if(data.data === 400){
           window.alert("중복된 아이디입니다.");
           payload.navigate('/member/signup');
