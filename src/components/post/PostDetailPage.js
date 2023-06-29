@@ -14,11 +14,6 @@ const PostDetailPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
-  // const [getData, setGetData] = useState(null);
-  
-
-  // console.log("data", data);
-
 
   useEffect(() => {
     async function fetchData() {
@@ -27,9 +22,6 @@ const PostDetailPage = () => {
       if (response.payload) {
         const completionValue = response.payload.completion === 1 ? "1" : "0";
         setData({ ...response.payload, completion: completionValue });
-        
-        // const existReviewValue = response.payload.existReview === 1 ? "1" : "0";
-        // setGetData({ ...response.payload, existReview : existReviewValue });
       }
     }
 

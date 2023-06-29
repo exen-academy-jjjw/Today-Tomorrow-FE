@@ -56,6 +56,11 @@ export const updateReview = createAsyncThunk(
           "Content-Type": "multipart/form-data" 
         },
       });
+
+      console.log("수정 : ", response);
+      console.log("수정 total: ", payload.total);
+      console.log("수정 payload: ", payload);
+      
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -69,8 +74,11 @@ export const deleteReview = createAsyncThunk(
   "review/delete",
   async (postId, thunkAPI) => {
     try {
-      await instance.delete(`/review/delete/${postId}`);
-      return thunkAPI.fulfillWithValue(postId);
+      const res = await instance.delete(`/review/delete/${postId}`);
+
+      if(res.data === 200) {
+        return thunkAPI.fulfillWithValue(res.data);
+      }
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
@@ -93,7 +101,18 @@ export const reviewSlice = createSlice({
       })
       .addCase(detailReview.rejected, (state) => {
         state.isLoading = false;
+      });
+
+      builder  
+      .addCase(deleteReview.pending, (state) => {
+        state.isLoading = true;
       })
+      .addCase(deleteReview.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteReview.rejected, (state) => {
+        state.isLoading = false;
+      });
   }
 }); 
 
