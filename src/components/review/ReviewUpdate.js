@@ -13,7 +13,6 @@ function ReviewUpdate() {
 
   const [data, setData] = useState("");
   const [images, setImages] = useState([]);
-  const [formData, setFormData] = useState(new FormData());
 
   useEffect(() => {
     async function detailData() {
@@ -34,13 +33,6 @@ function ReviewUpdate() {
     if (images.length + newImages.length <= 3) {
       setImages((prevImages) => [...prevImages, ...newImages]);
 
-      // formData에 이미지 파일 추가
-      const formDataCopy = new FormData();
-      for (let i = 0; i < newImages.length; i++) {
-        formDataCopy.append("fileUrl", newImages[i].file);
-      }
-      formDataCopy.append("reviewContent", data);
-      setFormData(formDataCopy);
     } else {
       window.alert("이미지는 최대 3개까지 등록 가능합니다.");
     }
@@ -50,12 +42,6 @@ function ReviewUpdate() {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
-
-    // formData에서 삭제된 이미지 제거
-    formData.delete("fileUrl");
-    for (let i = 0; i < newImages.length; i++) {
-      formData.append("fileUrl", newImages[i].file);
-    }
   };
 
   const handleContentChange = (e) => {
@@ -64,6 +50,12 @@ function ReviewUpdate() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+
+    // 이미지 파일 추가
+    for (let i = 0; i < images.length; i++) {
+      formData.append("fileUrl", images[i].file);
+    }
 
     // 리뷰 내용 추가
     formData.append("reviewContent", data);
