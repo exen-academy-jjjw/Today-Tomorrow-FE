@@ -25,9 +25,11 @@ function ReviewDetail(){
   // 리뷰 삭제 처리
   const deleteHandler = async (e) => {
     e.preventDefault();
-    dispatch(deleteReview(postId));
-    // navigate가 안되서 window.location.reload로 변경
-    window.location.reload();
+    const res = await dispatch(deleteReview(postId));
+
+    if(res.payload === 200) {
+      window.location.reload();
+    }
   };
  
   console.log(data);

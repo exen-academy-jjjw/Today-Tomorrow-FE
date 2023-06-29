@@ -81,8 +81,8 @@ function ReviewUpdate() {
                   {({ getRootProps, getInputProps }) => (
                     <div {...getRootProps()}>
                       <input {...getInputProps()} />
-                      <button type="button">Image</button>
-                    </div>
+                      {images.length < 3 && <button type="button">Image</button>}
+                  </div>
                   )}
                 </Dropzone>
                 <br />
