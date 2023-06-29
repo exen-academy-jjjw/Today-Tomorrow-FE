@@ -64,6 +64,9 @@ function ReviewUpdate() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    // 리뷰 내용 추가
+    formData.append("reviewContent", data);
     
     try {
       await dispatch(updateReview({ postId, total: formData }));
