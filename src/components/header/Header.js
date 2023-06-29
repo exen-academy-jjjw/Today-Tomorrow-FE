@@ -1,25 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsBucketFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../modules/redux/loginSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import "./css/headerStyle.scss";
 import { MdPermIdentity } from "react-icons/md";
-import { getCookie, removeCookie } from "../cookie/cookie";
+import { getCookie } from "../cookie/cookie";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // const nickname = useSelector((state) => state.myPageSlice.nickname || getCookie("nickname"));
   const nickname = getCookie("nickname");
 
   const logoutHandler = () => {
       dispatch(logout()).then(() => {
-        // removeCookie("refreshtoken");
-        // removeCookie("nickname");
-        // localStorage.removeItem("accesstoken");
         navigate('/main');
       });
   }

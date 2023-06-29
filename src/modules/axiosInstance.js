@@ -10,9 +10,7 @@ const api = axios.create({
 // 요청시
 api.interceptors.request.use(
   function (config) {
-    console.log("config ", config);
     const accessToken = localStorage.getItem("accesstoken");
-    console.log(accessToken);
 
     //요청시 AccessToken 계속 보내주기
     if (!accessToken) {
@@ -29,7 +27,6 @@ api.interceptors.request.use(
   },
   function (error) {
     
-    // console.log("request error", error);
     return Promise.reject(error);
   }
 );
@@ -37,7 +34,6 @@ api.interceptors.request.use(
 // 데이터받을 시
 api.interceptors.response.use(
   function (response) {
-    console.log("response start", response);
     return response;
   },
   async (error) => {

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../axiosInstance.js";
+import instance from "../axiosInstance.js";
 
 const initialState = {
   data: [],
@@ -10,7 +10,7 @@ const initialState = {
 export const fetchPostList = createAsyncThunk(
   "post/list", async (payload, thunkAPI) => {
   try {
-    const response = await axios.get("http://localhost:8080/post/list");
+    const response = await instance.get("http://localhost:8080/post/list");
 
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
@@ -22,7 +22,7 @@ export const fetchPostCategoryList = createAsyncThunk(
   "post/categoryList",
   async (category, thunkAPI) => {
     try {
-      const data = await axios.get(`http://localhost:8080/post/list/${category}`);
+      const data = await instance.get(`http://localhost:8080/post/list/${category}`);
 
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {

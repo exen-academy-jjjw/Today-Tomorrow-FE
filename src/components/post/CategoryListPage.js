@@ -6,7 +6,7 @@ import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import Header from "../header/Header.js";
 import "./css/listPageStyle.scss";
 
-import axios from "../../modules/axiosInstance.js"
+import instance from "../../modules/axiosInstance.js"
 
 import {
   MdFlightTakeoff,
@@ -35,7 +35,7 @@ const CategoryListPage = () => {
       const category = params.category;
       const nextPage = page.current + 1;
 
-      const { data } = await axios.get(
+      const { data } = await instance.get(
         `http://localhost:8080/post/list/${category}?page=${page.current}&size=10`
       );
 

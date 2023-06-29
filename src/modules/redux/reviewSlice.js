@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import instance from "../axiosInstance.js";
-import axios from "../axiosInstance.js";
 
 
 //초기값 설정
