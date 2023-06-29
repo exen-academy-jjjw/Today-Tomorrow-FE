@@ -12,7 +12,7 @@ const PostUpdatePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { postId } = useParams();
-  const categories = ["travel", "hobby", "learn", "etc"];
+  const categories = ["travel", "hobby", "study", "etc"];
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const location = useLocation();

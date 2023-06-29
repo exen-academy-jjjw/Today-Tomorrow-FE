@@ -73,11 +73,11 @@ function Review(){
               <div className="fileBox">
                 <Dropzone onDrop={handleDrop}>
                   {({ getRootProps, getInputProps }) => (
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <button type="button">Image</button>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        {images.length < 3 && <button type="button">Image</button>}
                     </div>
-                  )}
+                    )}
                 </Dropzone>
                 <br />
                 {images.map((img, index) => (

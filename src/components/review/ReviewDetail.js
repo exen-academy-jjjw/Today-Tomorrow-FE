@@ -26,7 +26,7 @@ function ReviewDetail(){
   const deleteHandler = async (e) => {
     e.preventDefault();
     const res = await dispatch(deleteReview(postId));
-
+    
     if(res.payload === 200) {
       window.location.reload();
     }
