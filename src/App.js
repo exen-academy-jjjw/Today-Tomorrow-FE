@@ -9,6 +9,7 @@ import PostDetailPage from "./components/post/PostDetailPage";
 import PostUpdatePage from "./components/post/PostUpdatePage";
 import PostCreatePage from "./components/post/PostCreatePage";
 import CategoryListPage from "./components/post/CategoryListPage";
+import ShareListPage from "./components/post/ShareListPage";
 import Mypage from "./components/mypage/Mypage";
 import Unregister from "./components/mypage/Unregister";
 import { PrivateRoute } from "./components/shared/PrivateRoute";
@@ -43,6 +44,7 @@ function App() {
             <Route path="create" element={<PostCreatePage />} />
             <Route path="detail/:postId" element={<PostDetailPage />} />
             <Route path="update/:postId" element={<PostUpdatePage />} />
+            <Route path="share" element={<ShareListPage />} />
 
             <Route path="list">
               <Route path="" element={<ListPage />} />

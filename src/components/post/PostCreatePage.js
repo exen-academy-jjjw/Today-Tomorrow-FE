@@ -17,6 +17,7 @@ const PostCreatePage = () => {
     title: "",
     content: "",
     completion: 0,
+    share : 0
   });
 
   const handleCategoryChange = (event) => {
@@ -26,12 +27,23 @@ const PostCreatePage = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    ///////////////////////////////////// 추가 /////////////////////////////
+    const { share, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setPostInfo((info) => ({ ...info, [share]: checked ? 1 : 0 }));
+    } else {
+      setPostInfo((info) => ({ ...info, [share]: value }));
+    }
+    ///////////////////////////////////////////////////////////////////////
+
     const updatedPostInfo = {
       ...postInfo,
       completion: parseInt(postInfo.completion),
+      share : parseInt(postInfo.share)
     };
+
     const response = await dispatch(postCreate(updatedPostInfo));
-    console.log(response);
     if (response.meta.requestStatus === "fulfilled") {
       const newPostId = response.payload.data;
       navigate(`/post/detail/${newPostId}`);
@@ -76,6 +88,7 @@ const PostCreatePage = () => {
                   onChange={onChangeHandler}
                 ></textarea>
               </div>
+              <input type="checkbox" name="share" value = "1" onChange={onChangeHandler} />
               <button className="createPostBtn" type="submit">add</button>
             </form>
           </div>
