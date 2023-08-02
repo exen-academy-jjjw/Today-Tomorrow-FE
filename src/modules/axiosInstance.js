@@ -34,6 +34,7 @@ api.interceptors.request.use(
 // 데이터받을 시
 api.interceptors.response.use(
   function (response) {
+    console.log("response start", response);
     return response;
   },
   async (error) => {

@@ -26,7 +26,10 @@ const initialState = {
 
         const postData = response.data;
         const completion = postData.completion || 0;
-        const dataWithParsedCompletion = { ...postData, completion: completion };
+        // const dataWithParsedCompletion = { ...postData, completion: completion };
+
+        const share = postData.share || 0;
+        const dataWithParsedCompletion = { ...postData, completion: completion, share: share };
         
         return thunkAPI.fulfillWithValue(dataWithParsedCompletion);
       } catch (error) {
@@ -57,7 +60,8 @@ const initialState = {
             category: payload.category,
             title: payload.title,
             content: payload.content,
-            completion: payload.completion
+            completion: payload.completion,
+            share: payload.share
           }
         );
 
