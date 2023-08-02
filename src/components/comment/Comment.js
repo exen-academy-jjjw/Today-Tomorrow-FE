@@ -1,36 +1,29 @@
 import React, { useState } from "react";
-// import "./css/reviewpageStyle.scss";
+import "./css/commentpageStyle.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Header from "../header/Header.js";
 import { createComment } from "../../modules/redux/commentSlice";
 
 
 function Comment(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { postId } = useParams();
-  const { commentId } = useParams();
+  const { postId, commentId } = useParams();
 
   // 댓글
-  const [data, setData] = useState("");
+  const [commentTxt, setCommentTxt] = useState("");
 
   // 댓글 등록
   const handleContent = (e) => {
-    setData(e.target.value);
+    setCommentTxt(e.target.value);
   };
 
   // 댓글 등록 보내기
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
     try {
-        if(parentId == null){
-            await dispatch(createComment({ postId, data }));
-        } else{
-            await dispatch(createReply({ commentId, data }));
-        }
-        navigate(`/post/detail/${postId}`);
+        await dispatch(createComment({ postId, commentTxt }));
+        window.location.reload();
     } catch (error) {
         console.log("Error:", error);
     }
@@ -38,41 +31,16 @@ function Comment(){
   
   return (
     <>
-      <div className="pageBg" >
-      <Header />
-        <br/> 
-        <div className="pageBox">
-          <form onSubmit={onSubmitHandler}>
-            <div className="reviewBox">
-              <div className="fileBox">
-                <Dropzone onDrop={handleDrop}>
-                  {({ getRootProps, getInputProps }) => (
-                      <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        {images.length < 3 && <button type="button">Image</button>}
-                    </div>
-                    )}
-                </Dropzone>
-                <br />
-                {images.map((img, index) => (
-                  <div className="imgBg" key={index}>
-                    <div className="imgBox">
-                      <img src={img.preview} alt={`Image ${index}`} style={{ height: "13vh", minWidth: "10vw" }} />
-                      <button type="button" className="imgBtn" onClick={() => handleDeleteImage(index)}>X</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="reviewCreateBox" >
-                <textarea className="review" placeholder="리뷰 작성" name="reviewContent" value={data} onChange={handleContent}/>
-              </div>  
-              <div className="reviewAddBtnBox">
-                <button className="reviewAddBtn">Review Add</button>
-              </div>
-            </div>
-          </form>
+        <div className="commentP">
+            <form onSubmit={onSubmitHandler}>
+                <div className="commentBox">
+                    <input className="commentTxt" placeholder="댓글 작성" name="commentTxt" value={commentTxt} onChange={handleContent}/>
+                </div>  
+                <div className="commentAddBtnBox">
+                    <button className="commentAddBtn">Add</button>
+                </div>
+            </form>
         </div>
-      </div>
     </>
   )
 }

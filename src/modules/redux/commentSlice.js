@@ -15,10 +15,10 @@ const initialState = {
 
 // 작성
 export const createComment = createAsyncThunk(
-  "comment/create/",
+  "comment/create",
   async (payload, thunkAPI) => {
     try {
-      const response = await instance.post(`/comment/create/${payload.postId}`, payload.total);
+      const response = await instance.post(`/comment/create/${payload.postId}`, payload);
       return thunkAPI.fulfillWithValue(response);
     } catch(e){
       return thunkAPI.rejectWithValue(e);
@@ -27,10 +27,10 @@ export const createComment = createAsyncThunk(
 );
 
 export const createReply = createAsyncThunk(
-    "comment/reply/",
+    "comment/reply",
     async (payload, thunkAPI) => {
     try {
-        const response = await instance.post(`/comment/reply/${payload.commentId}`, payload.total);
+        const response = await instance.post(`/comment/reply/${payload.commentId}`, payload);
         return thunkAPI.fulfillWithValue(response);
         } catch(e){
             return thunkAPI.rejectWithValue(e);
@@ -45,27 +45,21 @@ export const detailComment = createAsyncThunk(
     try {
       const response = await instance.get(`/comment/detail/${postId}`
       );
-      return thunkAPI.fulfillWithValue(response.data);
+      return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
   }
 );
 
-
 // 수정
 export const updateComment = createAsyncThunk(
   "comment/update",
   async (payload, thunkAPI) => {
     try {
-      const response = await instance.put(`/comment/update/${payload.commentId}`, payload.total, {
-        headers: {
-          "Content-Type": "multipart/form-data" 
-        },
-      });
+      const response = await instance.put(`/comment/update/${payload.commentId}`, payload);
 
       console.log("수정 : ", response);
-      console.log("수정 total: ", payload.total);
       console.log("수정 payload: ", payload);
       
       return thunkAPI.fulfillWithValue(response);
@@ -74,7 +68,6 @@ export const updateComment = createAsyncThunk(
     }
   }
 );
-
 
 // 삭제
 export const deleteComment = createAsyncThunk(
@@ -92,7 +85,7 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
-// 리뷰 슬라이스 생성
+// 댓글 슬라이스 생성
 export const commentSlice = createSlice({
   name : "comment",
   initialState: {},

@@ -19,6 +19,10 @@ import Review from "./components/review/Review";
 import ReviewUpdate from "./components/review/ReviewUpdate";
 import ReviewDetail from "./components/review/ReviewDetail";
 
+import Comment from "./components/comment/Comment";
+import CommentUpdate from "./components/comment/CommentUpdate";
+
+
 function App() {
   return (
     <>
@@ -57,6 +61,12 @@ function App() {
             <Route path="detail/:postId" element={<ReviewDetail />} />
             <Route path="update/:postId" element={<ReviewUpdate />} />
           </Route>
+
+          <Route path="/comment">
+            <Route path="create/:postId" element={<Comment />} />
+            <Route path="update/:commentId" element={<CommentUpdate />} />
+          </Route>
+
         </Route>
       </Routes>
     </>

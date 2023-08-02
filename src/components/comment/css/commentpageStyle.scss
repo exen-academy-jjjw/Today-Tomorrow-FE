@@ -1,0 +1,67 @@
+@import "../../../assets/style.scss";
+.commentP{
+    margin: 10px 15px 5px 15px;
+    padding: 20px 15px 5px 15px;
+    border-radius: $border-radius01;
+    border: 1.5px solid $PM-back-1;
+    h5 { 
+        padding: 3px;
+        background: #dfe6ed8a; 
+        border-radius: $border-radius01;  
+        font-weight: lighter; 
+    }
+    .commentC {
+        h5 { 
+            margin-left: 15px;
+            padding: 3px;
+            background: #dfe6ed8a; 
+            border-radius: $border-radius01;    
+        }
+    }
+    .commentBox {
+        margin-left: 15px;
+        padding: 5px;
+        border-radius: $border-radius01;
+        background: #dfe6ed8a; 
+        border: 1.5px solid $PM-back-1;
+        input { 
+            outline: none;
+            background: inherit; 
+        }
+    }
+    .commentAddBtnBox{
+        display: flex;
+        justify-content: flex-end;
+        margin: 0.3rem 0 0.5rem 0;
+        .commentAddBtn {
+            cursor: pointer;
+            align-self: flex-end;
+            margin-top: 3px;
+            padding: 3px 6px;
+            border: 1.5px solid $PM-skyblue;
+            background: $PM-white;
+            border-radius: $border-radius01;
+            &:hover {
+            background: $PM-blue;
+            color: $PM-white;
+            }
+        }
+    }
+    .commentBtnBox {
+        display: flex;
+        justify-content: flex-end;
+        margin: 0.3rem 0 0.5rem 0;
+        .commentBtn {
+            cursor: pointer;
+            align-self: flex-end;
+            margin-left: 3px;
+            border: 1.5px solid $PM-skyblue;
+            background: $PM-white;
+            border-radius: $border-radius01;
+            &:hover {
+            background: $PM-blue;
+            color: $PM-white;
+            }
+        }
+    }
+}
