@@ -57,11 +57,7 @@ export const updateComment = createAsyncThunk(
   "comment/update",
   async (payload, thunkAPI) => {
     try {
-      const response = await instance.put(`/comment/update/${payload.commentId}`, payload);
-
-      console.log("수정 : ", response);
-      console.log("수정 payload: ", payload);
-      
+      const response = await instance.put(`/comment/update/${payload.commentId}`, payload.commentTxt);
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);

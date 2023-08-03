@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createReply, detailComment, updateComment, deleteComment } from "../../modules/redux/commentSlice";
 
 import CommentUpdate from "./CommentUpdate";
-
+import { BiConversation, BiCommentDots, BiEditAlt, BiTrash, BiSave, BiExit } from "react-icons/bi";
 
 function CommentDetail() {
   const dispatch = useDispatch();
@@ -14,8 +14,8 @@ function CommentDetail() {
 
   const [data, setData] = useState([]);
   const [parentId, setParentId] = useState([]);
-  const [isEditing, setIsEditing] = useState(null);
 
+  const comments = useSelector((state) => state.comment);
 
   // 댓글 조회
   useEffect(() => {
@@ -23,7 +23,6 @@ function CommentDetail() {
       const response = await dispatch(detailComment(postId));;
       setData(response.payload);
       setParentId(response.payload.data);
-      console.log("데이터:", response.payload.data)
     }
     detailData();
   }, [dispatch, postId]);
@@ -57,44 +56,103 @@ function CommentDetail() {
     }
   };
 
-  // 수정 버튼 클릭 시, 수정 폼 렌더링
-  const handleUpdateClick = (commentId) => {
-    setIsEditing(commentId);
+  // 댓글 수정
+  const [isEditing, setIsEditing] = useState(null);
+  const [editingText, setEditingText] = useState("");
+
+  const handleUpdateClick = async (commentId, commentTxt) => {
+    try {
+      await dispatch(updateComment({ commentId, commentTxt }));
+      setIsEditing(null);
+      window.location.reload();
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
-  
+
+  const handleEditClick = (commentId, commentTxt) => {
+    setIsEditing(commentId);
+    setEditingText(commentTxt);
+  };
 
   return (
     <>
-      {data.data && 
-      data.data.map((comment) => (
+      {data.data && data.data.map((comment) => (
         <div key={comment.id} className="commentP">
-          <h5><strong>💬{comment.nickname}</strong> : {comment.commentTxt}</h5>
-          <div className="commentBtnBox">
-            <button className="commentBtn" onClick={() => navigate(`/comment/update/${comment.id}`)}>Update</button>
-            <button className="commentBtn"  onClick={(e) => deleteHandler(e, comment.id)}>Delete</button>
+          <div className="comment">
+            {isEditing === comment.id ? (
+              <>
+                <h5><strong>
+                  <BiCommentDots /> {comment.nickname}
+                </strong>{" "}:</h5>
+                <CommentUpdate
+                  comment={comment}
+                  onEditClick={setIsEditing}
+                  onUpdateClick={handleUpdateClick}
+                />
+              </>
+            ) : (
+              <>
+                <h5><strong>
+                  <BiCommentDots /> {comment.nickname}
+                </strong>{" "}: {comment.commentTxt}</h5>
+                <div className="commentBtnBox">
+                  <button className="commentBtn"
+                    onClick={() => handleEditClick(comment.id, comment.commentTxt)}>
+                    <BiEditAlt />
+                  </button>
+                  <button className="commentBtn"
+                    onClick={(e) => deleteHandler(e, comment.id)}>
+                    <BiTrash />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-            {comment.children &&
-              comment.children.map((child) => (
-                <div key={child.id} className="commentC">
-                  <h5><strong>💬{child.nickname}</strong> : {child.commentTxt}</h5>
+          {comment.children && comment.children.map((child) => (
+            <div key={child.id} className="commentC">
+              {isEditing === child.id ? (
+                <>
+                  <h5><strong>
+                    <BiConversation /> {child.nickname}
+                  </strong>{" "}:</h5>
+                  <CommentUpdate
+                    comment={child}
+                    onEditClick={() => setIsEditing(null)}
+                    onUpdateClick={handleUpdateClick}
+                  />
+                </>
+              ):(
+                <>
+                  <h5><strong>
+                    <BiConversation /> {child.nickname}
+                  </strong>{" "}: {child.commentTxt}</h5>
                   <div className="commentBtnBox">
-                    <button className="commentBtn" onClick={() => navigate(`/comment/update/${comment.id}`)}>Update</button>
-                    <button className="commentBtn" onClick={(e) => deleteHandler(e, child.id)}>Delete</button>
+                    <button className="commentBtn"
+                      onClick={() => handleEditClick(child.id, child.commentTxt)}>
+                      <BiEditAlt />
+                    </button>
+                    <button className="commentBtn"
+                      onClick={(e) => deleteHandler(e, child.id)}>
+                      <BiTrash />
+                    </button>
                   </div>
-                </div>
-              ))}
-            <div>
-              <form onSubmit={onSubmitHandler}>
-                <div className="commentBox">
-                  <input className="commentTxt" placeholder="대댓글 작성" name="commentTxt" value={replyTxt} onChange={(e) => handleReplyTxt(e, comment.id)}/>
-                </div>  
-                <div className="commentAddBtnBox">
-                    <button className="commentAddBtn">Add</button>
-                </div>
-              </form>
+                </>
+              )}
             </div>
+          ))}
+          <div>
+            <form onSubmit={onSubmitHandler}>
+              <div className="commentBox">
+                <input className="commentTxt" placeholder="대댓글 작성" name="commentTxt" value={replyTxt} onChange={(e) => handleReplyTxt(e, comment.id)}/>
+              </div>  
+              <div className="commentAddBtnBox">
+                  <button className="commentAddBtn">Add</button>
+              </div>
+            </form>
           </div>
-        ))}
+        </div>
+      ))}
     </>
   );
 }
