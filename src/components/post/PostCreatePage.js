@@ -88,7 +88,10 @@ const PostCreatePage = () => {
                   onChange={onChangeHandler}
                 ></textarea>
               </div>
-              <input type="checkbox" name="share" value = "1" onChange={onChangeHandler} />
+              <div className="shareBox">
+                <input className="shareBtn" type="checkbox" name="share" value = "1" onChange={onChangeHandler} />
+                <span className="shareText">share</span>
+              </div>
               <button className="createPostBtn" type="submit">add</button>
             </form>
           </div>
