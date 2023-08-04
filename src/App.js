@@ -20,7 +20,6 @@ import ReviewUpdate from "./components/review/ReviewUpdate";
 import ReviewDetail from "./components/review/ReviewDetail";
 
 import Comment from "./components/comment/Comment";
-import CommentUpdate from "./components/comment/CommentUpdate";
 
 
 function App() {
@@ -64,7 +63,6 @@ function App() {
 
           <Route path="/comment">
             <Route path="create/:postId" element={<Comment />} />
-            <Route path="update/:commentId" element={<CommentUpdate />} />
           </Route>
 
         </Route>

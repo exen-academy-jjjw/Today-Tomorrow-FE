@@ -8,7 +8,7 @@ import Header from '../header/Header.js';
 import ReviewDetail from '../review/ReviewDetail';
 
 import "./css/postPageStyle.scss";
-// 추가
+
 import Comment from "../comment/Comment.js";
 import CommentDetail from "../comment/CommentDetail.js";
 
@@ -97,7 +97,6 @@ const PostDetailPage = () => {
             navigate(`/review/create/${data.postId}`)}>Review Create
             </button>
            }
-          {/* 추가 */}
           {data.existComment == 0 ? <Comment/> : <><CommentDetail /> <Comment/></>}
         </div>
       </div>
