@@ -8,6 +8,9 @@ import Header from '../header/Header.js';
 import ReviewDetail from '../review/ReviewDetail';
 
 import "./css/postPageStyle.scss";
+// 추가
+import Comment from "../comment/Comment.js";
+import CommentDetail from "../comment/CommentDetail.js";
 
 const PostDetailPage = () => {
   const { postId } = useParams();
@@ -18,10 +21,12 @@ const PostDetailPage = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await dispatch(fetchPostDetails(postId));
-
       if (response.payload) {
         const completionValue = response.payload.completion === 1 ? "1" : "0";
         setData({ ...response.payload, completion: completionValue });
+
+        const shareValue = response.payload.share === 1 ? "1" : "0";
+        setData({ ...response.payload, share: shareValue });
       }
     }
 
@@ -35,6 +40,7 @@ const PostDetailPage = () => {
         title: data.title,
         content: data.content,
         completion: data.completion,
+        share: data.share
       },
     });
   };
@@ -47,7 +53,13 @@ const PostDetailPage = () => {
   const handleCheckboxClick = async () => {
     try {
       const completionValue = data.completion === "1" ? "0" : "1";
-      await dispatch(updateCompletion({ postId: data.postId, completion: parseInt(completionValue) }));
+      const response = await dispatch(updateCompletion({ postId: data.postId, completion: parseInt(completionValue) }));
+
+      if(response.payload === 400) {
+        window.alert("작성자만 완료 여부를 변경할 수 있습니다.");
+        return;
+      }
+
       setData((prevData) => {
         return { ...prevData, completion: completionValue };
       });
@@ -60,7 +72,6 @@ const PostDetailPage = () => {
     return null;
   }
 
-  console.log("data 값", data);
   return (
     <>
       <div className="pageBg">
@@ -86,6 +97,8 @@ const PostDetailPage = () => {
             navigate(`/review/create/${data.postId}`)}>Review Create
             </button>
            }
+          {/* 추가 */}
+          {data.existComment == 0 ? <Comment/> : <><CommentDetail /> <Comment/></>}
         </div>
       </div>
     </>

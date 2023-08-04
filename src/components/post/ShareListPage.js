@@ -33,11 +33,11 @@ const CategoryListPage = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const category = params.category;
+    //   const category = params.category;
       const nextPage = page.current + 1;
 
       const { data } = await instance.get(
-        `http://localhost:8080/post/list/${category}?page=${page.current}&size=10`
+        `http://localhost:8080/post/share?page=${page.current}&size=10`
       );
 
       if (data && Array.isArray(data)) {
@@ -60,7 +60,7 @@ const CategoryListPage = () => {
       setIsLoading(true);
     }
 
-  }, [location, params.category]);
+  }, [location]);
 
   useEffect(() => {
     if (!observerTargetEl.current || !hasNextpage) return;
@@ -99,7 +99,12 @@ const CategoryListPage = () => {
       const res = await dispatch(
         updateCompletion({ postId, completion: completionValue })
       );
-      console.log(res);
+
+      if(res.payload === 400) {
+        window.alert("작성자만 완료 여부를 변경할 수 있습니다.");
+        return;
+      }
+
       setData((prevData) => {
         return prevData.map((item) => {
           if (item.postId === postId) {
@@ -125,13 +130,13 @@ const CategoryListPage = () => {
     navigate(`/post/list?page=${page.current}&size=10`);
   };
 
-    /////////////////////// 추가된 내용 ///////////////////////////////
+/////////////////////// 추가된 내용 ///////////////////////////////
     const handleSharePostsClick = () => {
-      page.current = 0;
-      setData([]);
-      navigate(`/post/share?page=${page.current}&size=10`);
+        page.current = 0;
+        setData([]);
+        navigate(`/post/share?page=${page.current}&size=10`);
     };
-    ///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
   const postCreateHandler = () => {
     navigate("/post/create");
