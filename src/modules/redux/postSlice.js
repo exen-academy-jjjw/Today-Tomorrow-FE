@@ -26,7 +26,6 @@ const initialState = {
 
         const postData = response.data;
         const completion = postData.completion || 0;
-        // const dataWithParsedCompletion = { ...postData, completion: completion };
 
         const share = postData.share || 0;
         const dataWithParsedCompletion = { ...postData, completion: completion, share: share };
@@ -51,6 +50,19 @@ const initialState = {
     }
   );
 
+  export const deleteGetMember = createAsyncThunk(
+    "post/deleteGetMember",
+    async (postId, thunkAPI) => {
+      try{
+        const data = await instance.get(`http://localhost:8080/post/delete/${postId}`);
+
+        return thunkAPI.fulfillWithValue(data.data);
+      } catch (e) {
+        return thunkAPI.rejectWithValue(e);
+      }
+    }
+  );
+
   export const updatePost = createAsyncThunk(
     "post/update",
     async (payload, thunkAPI) => {
@@ -66,6 +78,18 @@ const initialState = {
         );
 
         return thunkAPI.fulfillWithValue(data);
+      } catch (e) {
+        return thunkAPI.rejectWithValue(e);
+      }
+    }
+  );
+
+  export const updateGetMember = createAsyncThunk(
+    "post/updateGetMember",
+    async (postId, thunkAPI) => {
+      try{
+        const data = await instance.get(`http://localhost:8080/post/update/${postId}`);
+        return thunkAPI.fulfillWithValue(data.data);
       } catch (e) {
         return thunkAPI.rejectWithValue(e);
       }
