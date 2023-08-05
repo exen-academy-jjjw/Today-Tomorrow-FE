@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "./css/commentpageStyle.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createReply, detailComment, updateComment, deleteComment } from "../../modules/redux/commentSlice";
 
 import CommentUpdate from "./CommentUpdate";
-import { BiConversation, BiCommentDots, BiEditAlt, BiTrash, BiSave, BiExit } from "react-icons/bi";
+import { BiConversation, BiCommentDots, BiEditAlt, BiTrash } from "react-icons/bi";
+import { getCookie } from "../cookie/cookie";
 
 function CommentDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { postId, commentId } = useParams();
+  const nickname = getCookie("nickname");
+
 
   const [data, setData] = useState([]);
   const [parentId, setParentId] = useState([]);
-
-  const comments = useSelector((state) => state.comment);
 
   // 댓글 조회
   useEffect(() => {
@@ -71,8 +72,8 @@ function CommentDetail() {
   };
 
   const handleEditClick = (commentId, commentTxt) => {
-    setIsEditing(commentId);
-    setEditingText(commentTxt);
+      setIsEditing(commentId);
+      setEditingText(commentTxt);
   };
 
   return (
@@ -96,16 +97,18 @@ function CommentDetail() {
                 <h5><strong>
                   <BiCommentDots /> {comment.nickname}
                 </strong>{" "}: {comment.commentTxt}</h5>
-                <div className="commentBtnBox">
-                  <button className="commentBtn"
-                    onClick={() => handleEditClick(comment.id, comment.commentTxt)}>
-                    <BiEditAlt />
-                  </button>
-                  <button className="commentBtn"
-                    onClick={(e) => deleteHandler(e, comment.id)}>
-                    <BiTrash />
-                  </button>
-                </div>
+                {comment && comment.nickname === nickname && (
+                  <div className="commentBtnBox">
+                    <button className="commentBtn"
+                      onClick={() => handleEditClick(comment.id, comment.commentTxt)}>
+                      <BiEditAlt />
+                    </button>
+                    <button className="commentBtn"
+                      onClick={(e) => deleteHandler(e, comment.id)}>
+                      <BiTrash />
+                    </button>
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -127,16 +130,18 @@ function CommentDetail() {
                   <h5><strong>
                     <BiConversation /> {child.nickname}
                   </strong>{" "}: {child.commentTxt}</h5>
-                  <div className="commentBtnBox">
-                    <button className="commentBtn"
-                      onClick={() => handleEditClick(child.id, child.commentTxt)}>
-                      <BiEditAlt />
-                    </button>
-                    <button className="commentBtn"
-                      onClick={(e) => deleteHandler(e, child.id)}>
-                      <BiTrash />
-                    </button>
-                  </div>
+                  {child && child.nickname === nickname && (
+                    <div className="commentBtnBox">
+                      <button className="commentBtn"
+                        onClick={() => handleEditClick(child.id, child.commentTxt)}>
+                        <BiEditAlt />
+                      </button>
+                      <button className="commentBtn"
+                        onClick={(e) => deleteHandler(e, child.id)}>
+                        <BiTrash />
+                      </button>
+                    </div>
+                  )}
                 </>
               )}
             </div>

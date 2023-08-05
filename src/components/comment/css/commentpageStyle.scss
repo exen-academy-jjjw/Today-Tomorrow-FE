@@ -8,19 +8,19 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
-        padding: 0 5px;
+        padding: 5px;
         background: #dfe6ed8a; 
         border-radius: $border-radius01;  
         align-items: center;
         h5 { font-weight: lighter; }
-        
+        input { background: inherit; }
     }
     .commentC {
         display: flex;
         justify-content: space-between;
         margin-left: 15px;
         margin-bottom: 10px;
-        padding: 0 5px;
+        padding: 5px;
         background: #dfe6ed8a; 
         border-radius: $border-radius01;   
         align-items: center; 
@@ -59,12 +59,11 @@
     .commentBtnBox {
         display: flex;
         justify-content: flex-end;
-        margin: 0.3rem 0 0.5rem 0;
         .commentBtn {
             cursor: pointer;
             align-self: flex-end;
             margin-left: 3px;
-            border: 1.5px solid $PM-skyblue;
+            border: 0.5px solid $PM-gray;
             background: $PM-white;
             border-radius: $border-radius01;
             &:hover {
