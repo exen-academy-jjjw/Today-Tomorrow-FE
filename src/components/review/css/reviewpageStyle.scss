@@ -66,12 +66,11 @@
 
       .reviewDetailBox {
         white-space: pre-wrap;
+        border: 1px solid $PM-skyblue;
+        border-radius: $border-radius01;
+        padding: 10px;
         height: 10vh;
         display: flex;
-        p { 
-          width: 100%; 
-          margin: 1rem 0 0 0;
-        }
       }
 
       .reviewAddBtnBox {
