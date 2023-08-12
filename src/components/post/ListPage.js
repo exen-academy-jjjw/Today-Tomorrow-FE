@@ -8,7 +8,7 @@ import Header from '../header/Header.js';
 import "./css/listPageStyle.scss";
 import instance from "../../modules/axiosInstance.js"
 
-import { MdFlightTakeoff, MdFavorite, MdMoreHoriz, MdOutlineLibraryAdd, MdOutlineModeEdit } from "react-icons/md";
+import { MdFlightTakeoff, MdFavorite, MdMoreHoriz, MdOutlineLibraryAdd, MdOutlineModeEdit, MdGroupAdd } from "react-icons/md";
 
 const ListPage = () => {
   const dispatch = useDispatch();
@@ -72,6 +72,14 @@ const ListPage = () => {
     navigate(`/post/list/${category}?page=${page.current}&size=10`);
   };
 
+  /////////////////////// 추가된 내용 ///////////////////////////////
+  const handleSharePostsClick = () => {
+    page.current = 0;
+    setData([]);
+    navigate(`/post/share?page=${page.current}&size=10`);
+  };
+  ///////////////////////////////////////////////////////////////////
+
   const handleAllPostsClick = () => {
     page.current = 0;
     setData([]);
@@ -119,6 +127,10 @@ const ListPage = () => {
             <button onClick={() => handleAllPostsClick()} className="categoryButton">
               <MdOutlineLibraryAdd id="icon" />
               <span>All</span>
+            </button>
+            <button onClick={() => handleSharePostsClick()} className="categoryButton">
+              <MdGroupAdd id="icon" />
+              <span>Share</span>
             </button>
         </div>
         <div>

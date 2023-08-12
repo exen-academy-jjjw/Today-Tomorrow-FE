@@ -16,7 +16,7 @@ const PostUpdatePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const location = useLocation();
-  const { category, title, content, completion } = location.state;
+  const { category, title, content, completion, share } = location.state;
 
   const [postInfo, setPostInfo] = useState({
     postId: "",
@@ -24,6 +24,7 @@ const PostUpdatePage = () => {
     title: "",
     content: "",
     completion: "",
+    share: ""
   });
 
   useEffect(() => {
@@ -33,9 +34,10 @@ const PostUpdatePage = () => {
       title,
       content,
       completion,
+      share
     });
     setSelectedCategory(category);
-  }, [postId, category, title, content, completion]);
+  }, [postId, category, title, content, completion, share]);
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -44,6 +46,7 @@ const PostUpdatePage = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
     await dispatch(updatePost(postInfo));
     await dispatch(fetchPostDetails(postId));
 
@@ -51,8 +54,13 @@ const PostUpdatePage = () => {
   };
 
   const handleCompletionClick = () => {
-    const completionValue = postInfo.completion === "1" ? "0" : "1";
+    const completionValue = postInfo.completion === 1 ? 0 : 1;
     setPostInfo((info) => ({ ...info, completion: completionValue }));
+  };
+
+  const handleShareClick = () => {
+    const shareValue = postInfo.share === 1 ? 0 : 1;
+    setPostInfo((info) => ({ ...info, share: shareValue }));
   };
 
   return (
@@ -63,7 +71,7 @@ const PostUpdatePage = () => {
           <div>
             <form onSubmit={onSubmitHandler}>
               <div className="pageTop" onClick={handleCompletionClick}>
-                {postInfo.completion === "0" ? (
+                {postInfo.completion === 0 ? (
                   <MdCheckBoxOutlineBlank id="icon" size={24} />
                 ) : (
                   <MdCheckBox id="icon" size={24} />
@@ -101,6 +109,16 @@ const PostUpdatePage = () => {
                     setPostInfo({ ...postInfo, content: e.target.value })
                     }
                 ></textarea>
+              </div>
+              <div className="shareBox">
+                <input
+                  className="shareBtn"
+                  type="checkbox"
+                  name="share"
+                  checked={postInfo.share === 1} // 체크 상태 설정
+                  onChange={handleShareClick} // 체크박스를 클릭했을 때 호출할 함수 설정
+                />
+                <span className="shareText">share</span>
               </div>
               <button className="updatePostBtn" type="submit">update</button>
             </form>

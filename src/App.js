@@ -9,6 +9,7 @@ import PostDetailPage from "./components/post/PostDetailPage";
 import PostUpdatePage from "./components/post/PostUpdatePage";
 import PostCreatePage from "./components/post/PostCreatePage";
 import CategoryListPage from "./components/post/CategoryListPage";
+import ShareListPage from "./components/post/ShareListPage";
 import Mypage from "./components/mypage/Mypage";
 import Unregister from "./components/mypage/Unregister";
 import { PrivateRoute } from "./components/shared/PrivateRoute";
@@ -17,6 +18,9 @@ import { PrivateRouteTwo } from "./components/shared/PrivateRouteTwo";
 import Review from "./components/review/Review";
 import ReviewUpdate from "./components/review/ReviewUpdate";
 import ReviewDetail from "./components/review/ReviewDetail";
+
+import Comment from "./components/comment/Comment";
+
 
 function App() {
   return (
@@ -43,6 +47,7 @@ function App() {
             <Route path="create" element={<PostCreatePage />} />
             <Route path="detail/:postId" element={<PostDetailPage />} />
             <Route path="update/:postId" element={<PostUpdatePage />} />
+            <Route path="share" element={<ShareListPage />} />
 
             <Route path="list">
               <Route path="" element={<ListPage />} />
@@ -55,6 +60,11 @@ function App() {
             <Route path="detail/:postId" element={<ReviewDetail />} />
             <Route path="update/:postId" element={<ReviewUpdate />} />
           </Route>
+
+          <Route path="/comment">
+            <Route path="create/:postId" element={<Comment />} />
+          </Route>
+
         </Route>
       </Routes>
     </>

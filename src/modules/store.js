@@ -5,6 +5,7 @@ import listSliceReducer from "./redux/listSlice";
 import postSliceReducer from "./redux/postSlice";
 import myPageSliceReducer from "./redux/myPageSlice";
 import reviewSliceReducer from "./redux/reviewSlice";
+import commentSliceReducer from "./redux/commentSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     listSlice: listSliceReducer,
     postSlice: postSliceReducer,
     myPageSlice: myPageSliceReducer,
-    reviewSlice: reviewSliceReducer
+    reviewSlice: reviewSliceReducer,
+    commentSlice: commentSliceReducer
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
   devTools: true,
