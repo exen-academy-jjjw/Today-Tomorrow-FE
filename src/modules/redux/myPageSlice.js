@@ -26,11 +26,13 @@ const initialState = {
     async (nickname, thunkAPI) => {
         try {
             const response = await instance.put('http://localhost:8080/member/update/nickname', {nickname});
-            
-            //response에 닉네임을 실어주는게 좋다.
-            removeCookie('nickname');
-            const newNickname = nickname;
-            setCookie("nickname", newNickname);
+
+            if(response.data !== 400) {
+                //response에 닉네임을 실어주는게 좋다.
+                removeCookie('nickname');
+                const newNickname = nickname;
+                setCookie("nickname", newNickname);
+            }
 
             return thunkAPI.fulfillWithValue(response);
         } catch (error) {
