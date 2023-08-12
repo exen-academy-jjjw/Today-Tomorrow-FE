@@ -43,13 +43,34 @@
         white-space: pre-wrap;
     }
 
-    .titleAndContent > h3,p {
-        margin-top: 15px;
-        margin-left: 15px;
-        margin-right: 15px;
-        border: 1px solid $PM-skyblue;
-        padding: 10px;
-        border-radius: $border-radius01;
+    // .titleAndContent > h3,p {
+    //     margin-top: 15px;
+    //     margin-left: 15px;
+    //     margin-right: 15px;
+    //     border: 1px solid $PM-skyblue;
+    //     padding: 10px;
+    //     border-radius: $border-radius01;
+    // }
+    .titleAndContent {
+
+        .titlaAndAuthor {
+            margin-top: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+            border: 1px solid $PM-skyblue;
+            padding: 10px;
+            border-radius: $border-radius01;
+        }
+
+        > p {
+            margin-top: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+            border: 1px solid $PM-skyblue;
+            padding: 10px;
+            border-radius: $border-radius01;
+        }
+        
     }
 
     .reviewCreateBtn {
