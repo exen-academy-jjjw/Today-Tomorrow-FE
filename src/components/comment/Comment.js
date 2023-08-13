@@ -31,16 +31,16 @@ function Comment(){
   
   return (
     <>
-        <div className="commentP">
-            <form onSubmit={onSubmitHandler}>
-                <div className="commentBox">
-                    <input className="commentTxt" placeholder="댓글 작성" name="commentTxt" value={commentTxt} onChange={handleContent}/>
-                </div>  
-                <div className="commentAddBtnBox">
-                    <button className="commentAddBtn">Add</button>
-                </div>
-            </form>
-        </div>
+      <div className="commentP">
+        <form onSubmit={onSubmitHandler}>
+          <div className="commentBox">
+            <input className="commentTxt" placeholder="댓글 작성" name="commentTxt" value={commentTxt} onChange={handleContent}/>
+          </div>  
+          <div className="commentAddBtnBox">
+            <button className="commentAddBtn">Add</button>
+          </div>
+        </form>
+      </div>
     </>
   )
 }
