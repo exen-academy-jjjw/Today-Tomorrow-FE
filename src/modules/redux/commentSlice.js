@@ -81,6 +81,19 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
+// 댓글 수
+export const countComment = createAsyncThunk(
+  "comment/count",
+  async (postId, thunkAPI) => {
+    try {
+      const res = await instance.get(`/comment/count/${postId}`);
+      return thunkAPI.fulfillWithValue(res.data);
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e);
+    }
+  }
+);
+
 // 댓글 슬라이스 생성
 export const commentSlice = createSlice({
   name : "comment",

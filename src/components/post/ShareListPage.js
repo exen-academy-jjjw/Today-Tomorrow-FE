@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateCompletion } from "../../modules/redux/postSlice.js";
-import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
+import { countComment } from "../../modules/redux/commentSlice.js";
 import Header from "../header/Header.js";
 import "./css/listPageStyle.scss";
 
@@ -16,6 +15,7 @@ import {
   MdOutlineModeEdit,
   MdGroupAdd
 } from "react-icons/md";
+import { BiCommentDots } from "react-icons/bi";
 
 const CategoryListPage = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,23 @@ const CategoryListPage = () => {
   const observerTargetEl = useRef(null);
   const page = useRef(0);
   const { pathname } = useLocation();
+
+  const [commentCounts, setCommentCounts] = useState({});
+  useEffect(() => {
+    data.forEach(async (item) => {
+      try {
+        const response = await dispatch(countComment(item.postId));
+        const commentCount = response.payload;
+
+        setCommentCounts((prevCounts) => ({
+          ...prevCounts,
+          [item.postId]: commentCount,
+        }));
+      } catch (error) {
+        console.error("Error fetching comment count:", error);
+      }
+    });
+  }, [data, dispatch]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -90,34 +107,6 @@ const CategoryListPage = () => {
     navigate(`/post/detail/${postId}`);
   };
 
-  const handleCheckboxClick = async (postId) => {
-    try {
-      const completionValue = data.find((item) => item.postId === postId)
-        ?.completed
-        ? 0
-        : 1;
-      const res = await dispatch(
-        updateCompletion({ postId, completion: completionValue })
-      );
-
-      if(res.payload === 400) {
-        window.alert("작성자만 완료 여부를 변경할 수 있습니다.");
-        return;
-      }
-
-      setData((prevData) => {
-        return prevData.map((item) => {
-          if (item.postId === postId) {
-            return { ...item, completed: !item.completed };
-          }
-          return item;
-        });
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleCategoryClick = (category) => {
     page.current = 0;
     setData([]);
@@ -130,13 +119,11 @@ const CategoryListPage = () => {
     navigate(`/post/list?page=${page.current}&size=10`);
   };
 
-/////////////////////// 추가된 내용 ///////////////////////////////
-    const handleSharePostsClick = () => {
-        page.current = 0;
-        setData([]);
-        navigate(`/post/share?page=${page.current}&size=10`);
-    };
-///////////////////////////////////////////////////////////////////
+  const handleSharePostsClick = () => {
+      page.current = 0;
+      setData([]);
+      navigate(`/post/share?page=${page.current}&size=10`);
+  };
 
   const postCreateHandler = () => {
     navigate("/post/create");
@@ -191,21 +178,14 @@ const CategoryListPage = () => {
         <div>
           <ul style={{ listStyleType: "none" }}>
             {data &&
-              data.map((item) => (
+              data.map((item, index) => (
                 <li className="postList" key={item.postId}>
-                  {item.completed ? (
-                    <MdCheckBox
-                      size={24}
-                      onClick={() => handleCheckboxClick(item.postId)}
-                    />
-                  ) : (
-                    <MdCheckBoxOutlineBlank
-                      size={24}
-                      onClick={() => handleCheckboxClick(item.postId)}
-                    />
-                  )}
+                  <span className="postCount">{data.length - index}.</span>
                   <span onClick={() => handleTitleClick(item.postId)}>
                     {item.title}
+                  </span>
+                  <span className="commentCount">
+                    <BiCommentDots id="commentIcon"/>{commentCounts[item.postId]}
                   </span>
                 </li>
               ))}

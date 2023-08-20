@@ -23,7 +23,6 @@ const PostDetailPage = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await dispatch(fetchPostDetails(postId));
-      console.log("작성자 확인", response.payload);
 
       if (response.payload) {
         const completionValue = response.payload.completion === 1 ? "1" : "0";
@@ -53,7 +52,13 @@ const PostDetailPage = () => {
   const handleCheckboxClick = async () => {
     try {
       const completionValue = data.completion === "1" ? "0" : "1";
-      await dispatch(updateCompletion({ postId: data.postId, completion: parseInt(completionValue) }));
+      const res = await dispatch(updateCompletion({ postId: data.postId, completion: parseInt(completionValue) }));
+      
+      if(res.payload === 400) {
+        window.alert("작성자만 완료 여부를 변경할 수 있습니다.");
+        return;
+      }
+      
       setData((prevData) => {
         return { ...prevData, completion: completionValue };
       });
