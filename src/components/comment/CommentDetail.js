@@ -31,11 +31,14 @@ function CommentDetail() {
   // 댓글 삭제 처리
   const deleteHandler = async (e, commentId) => {
     e.preventDefault();
-    try {
-      await dispatch(deleteComment(commentId));
-      window.location.reload();
-    } catch (error) {
-      console.log("Error:", error);
+    const isConfirmed = window.confirm('댓글을 삭제하시겠습니까?');
+    if (isConfirmed) {
+      try {
+        await dispatch(deleteComment(commentId));
+        window.location.reload();
+      } catch (error) {
+        console.log("Error:", error);
+      }
     }
   };
 

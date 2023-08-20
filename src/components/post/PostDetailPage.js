@@ -7,6 +7,9 @@ import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import Header from '../header/Header.js';
 import ReviewDetail from '../review/ReviewDetail';
 
+import Comment from "../comment/Comment.js";
+import CommentDetail from "../comment/CommentDetail.js";
+
 import "./css/postPageStyle.scss";
 import { getCookie } from "../cookie/cookie.js";
 
@@ -15,6 +18,7 @@ const PostDetailPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+  const nickname = getCookie("nickname");
 
   useEffect(() => {
     async function fetchData() {
@@ -39,7 +43,7 @@ const PostDetailPage = () => {
       },
     });
   };
-
+  
   const postDeleteHandler = async () => {
     await dispatch(deletePost(data.postId));
     navigate("/post/list");
@@ -90,11 +94,16 @@ const PostDetailPage = () => {
             </div>
             <p>{data.content}</p>
           </div>
-          {data.existReview === 1 ? <ReviewDetail />
-          : <button className="reviewCreateBtn" onClick={() =>
-            navigate(`/review/create/${data.postId}`)}>Review Create
-            </button>
-           }
+          {data.existReview === 1 ? 
+            <ReviewDetail /> : (nickname === data.nickname ? 
+              <button className="reviewCreateBtn" 
+                onClick={() => navigate(`/review/create/${data.postId}`)}>Review Create
+              </button> : null
+            )
+          }
+          {data.share === 1 ?
+            <><CommentDetail /> <Comment/></> : null
+          } 
         </div>
       </div>
     </>

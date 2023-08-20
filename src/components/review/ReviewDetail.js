@@ -4,17 +4,27 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { detailReview, deleteReview } from "../../modules/redux/reviewSlice";
 
+import { getCookie } from "../cookie/cookie";
+import { fetchPostDetails } from "../../modules/redux/postSlice.js";
+
 function ReviewDetail(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { postId } = useParams();
+  const nickname = getCookie("nickname");
+
   // 리뷰
   const [data, setData] = useState("");
+  const [user, setUser] = useState("");
+
   // 이미지
   const [image, setImage] = useState([]);
 
   useEffect(() => {
     async function detailData() {
+        const res = await dispatch(fetchPostDetails(postId));  
+        setUser(res.payload.nickname);
+
         const response = await dispatch(detailReview(postId));
         setData(response.payload.reviewContent);
         setImage(response.payload.fileUrlList);
@@ -25,14 +35,16 @@ function ReviewDetail(){
   // 리뷰 삭제 처리
   const deleteHandler = async (e) => {
     e.preventDefault();
-    const res = await dispatch(deleteReview(postId));
+    const isConfirmed = window.confirm('리뷰를 삭제하시겠습니까?');
+    if (isConfirmed) {
+      const res = await dispatch(deleteReview(postId));
     
-    if(res.payload === 200) {
-      window.location.reload();
+      if(res.payload === 200) {
+        window.location.reload();
+      }
     }
   };
  
-  console.log(data);
   return (
     <>
       <div className="reviewBox">
@@ -52,10 +64,12 @@ function ReviewDetail(){
         <div className="reviewDetailBox">
           <p>{data}</p>
         </div>  
-        <div className="reviewAddBtnBox">
-          <button className="reviewAddBtn" onClick={() => navigate(`/review/update/${postId}`)}>Review Update</button>
-          <button className="reviewAddBtn" onClick={deleteHandler}>Review Delete</button>
-        </div>
+        {nickname === user ? (
+          <div className="reviewAddBtnBox">
+            <button className="reviewAddBtn" onClick={() => navigate(`/review/update/${postId}`)}>Review Update</button>
+            <button className="reviewAddBtn" onClick={deleteHandler}>Review Delete</button>
+          </div>
+        ):null}
       </div>
     </>
   )
