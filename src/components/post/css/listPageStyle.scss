@@ -48,6 +48,15 @@
     span {
         cursor: pointer;
     }
+
+    .commentCount {
+        margin-left: auto;
+        margin-right: 10px;
+
+        #commentIcon {
+            margin-right: 10px;
+        }
+      }
 }
 
 .addBtn {
