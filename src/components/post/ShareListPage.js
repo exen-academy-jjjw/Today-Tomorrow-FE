@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateCompletion } from "../../modules/redux/postSlice.js";
+import { countComment } from "../../modules/redux/commentSlice.js";
 import Header from "../header/Header.js";
 import "./css/listPageStyle.scss";
 
@@ -15,6 +15,7 @@ import {
   MdOutlineModeEdit,
   MdGroupAdd
 } from "react-icons/md";
+import { BiCommentDots } from "react-icons/bi";
 
 const CategoryListPage = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,23 @@ const CategoryListPage = () => {
   const observerTargetEl = useRef(null);
   const page = useRef(0);
   const { pathname } = useLocation();
+
+  const [commentCounts, setCommentCounts] = useState({});
+  useEffect(() => {
+    data.forEach(async (item) => {
+      try {
+        const response = await dispatch(countComment(item.postId));
+        const commentCount = response.payload;
+
+        setCommentCounts((prevCounts) => ({
+          ...prevCounts,
+          [item.postId]: commentCount,
+        }));
+      } catch (error) {
+        console.error("Error fetching comment count:", error);
+      }
+    });
+  }, [data, dispatch]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -165,6 +183,9 @@ const CategoryListPage = () => {
                   <span className="postCount">{data.length - index}.</span>
                   <span onClick={() => handleTitleClick(item.postId)}>
                     {item.title}
+                  </span>
+                  <span className="commentCount">
+                    <BiCommentDots id="commentIcon"/>{commentCounts[item.postId]}
                   </span>
                 </li>
               ))}
