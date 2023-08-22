@@ -11,7 +11,14 @@ const NicknameModal = ({ closeNickname, nick }) => {
   const updateNick = () => {
     dispatch(updateNickname(nickname))
       .then((response) => {
-        window.alert('닉네임이 성공적으로 업데이트되었습니다.');
+
+        if(response.payload.data === 400) {
+          window.alert("중복된 닉네임입니다.");
+          return;
+        } else {
+          window.alert('닉네임이 성공적으로 업데이트되었습니다.');
+        }
+        
         closeNickname();
       })
       .catch((error) => {
