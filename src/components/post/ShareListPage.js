@@ -170,7 +170,7 @@ const CategoryListPage = () => {
             <MdOutlineLibraryAdd id="icon" />
             <span>All</span>
           </button>
-          <button onClick={() => handleSharePostsClick()} className="categoryButton">
+          <button onClick={() => handleSharePostsClick()} className="categoryButton active">
               <MdGroupAdd id="icon" />
               <span>Share</span>
             </button>

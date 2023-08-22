@@ -125,13 +125,11 @@ const CategoryListPage = () => {
     navigate(`/post/list?page=${page.current}&size=10`);
   };
 
-    /////////////////////// 추가된 내용 ///////////////////////////////
-    const handleSharePostsClick = () => {
-      page.current = 0;
-      setData([]);
-      navigate(`/post/share?page=${page.current}&size=10`);
-    };
-    ///////////////////////////////////////////////////////////////////
+  const handleSharePostsClick = () => {
+    page.current = 0;
+    setData([]);
+    navigate(`/post/share?page=${page.current}&size=10`);
+  };
 
   const postCreateHandler = () => {
     navigate("/post/create");
@@ -148,40 +146,40 @@ const CategoryListPage = () => {
         <div className="categoryBox">
           <button
             onClick={() => handleCategoryClick("travel")}
-            className="categoryButton"
+            className={`categoryButton ${params.category === "travel" ? "active" : ""}`}
           >
             <MdFlightTakeoff id="icon" />
             <span>travel</span>
           </button>
           <button
             onClick={() => handleCategoryClick("hobby")}
-            className="categoryButton"
+            className={`categoryButton ${params.category === "hobby" ? "active" : ""}`}
           >
             <MdFavorite id="icon" />
             <span>hobby</span>
           </button>
           <button
             onClick={() => handleCategoryClick("study")}
-            className="categoryButton"
+            className={`categoryButton ${params.category === "study" ? "active" : ""}`}
           >
             <MdOutlineModeEdit id="icon" />
             <span>study</span>
           </button>
           <button
             onClick={() => handleCategoryClick("etc")}
-            className="categoryButton"
+            className={`categoryButton ${params.category === "etc" ? "active" : ""}`}
           >
             <MdMoreHoriz id="icon" />
             <span>etc</span>
           </button>
-          <button onClick={handleAllPostsClick} className="categoryButton">
+          <button onClick={handleAllPostsClick} className={`categoryButton ${!params.category ? "active" : ""}`}>
             <MdOutlineLibraryAdd id="icon" />
             <span>All</span>
           </button>
-          <button onClick={() => handleSharePostsClick()} className="categoryButton">
+          <button onClick={() => handleSharePostsClick()} className={`categoryButton ${params.category === "share" ? "active" : ""}`}>
               <MdGroupAdd id="icon" />
               <span>Share</span>
-            </button>
+          </button>
         </div>
         <div>
           <ul style={{ listStyleType: "none" }}>
