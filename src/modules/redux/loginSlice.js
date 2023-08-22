@@ -20,7 +20,7 @@ export const postLogin = createAsyncThunk(
         if(data.headers.refreshtoken) {
           setCookie("refreshtoken", data.headers.refreshtoken);
           window.alert("환영합니다!");
-          payload.navigate('/post/list');
+          payload.navigate('/post/list/travel?page=0&size=10');
         } else {
           window.alert("아이디 혹은 비밀번호가 잘못되었습니다.");
         }

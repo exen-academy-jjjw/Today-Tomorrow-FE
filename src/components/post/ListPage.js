@@ -72,13 +72,11 @@ const ListPage = () => {
     navigate(`/post/list/${category}?page=${page.current}&size=10`);
   };
 
-  /////////////////////// 추가된 내용 ///////////////////////////////
   const handleSharePostsClick = () => {
     page.current = 0;
     setData([]);
     navigate(`/post/share?page=${page.current}&size=10`);
   };
-  ///////////////////////////////////////////////////////////////////
 
   const handleAllPostsClick = () => {
     page.current = 0;
@@ -124,7 +122,7 @@ const ListPage = () => {
               <MdMoreHoriz id="icon" />
               <span>etc</span>
             </button>
-            <button onClick={() => handleAllPostsClick()} className="categoryButton">
+            <button onClick={() => handleAllPostsClick()} className="categoryButton active">
               <MdOutlineLibraryAdd id="icon" />
               <span>All</span>
             </button>

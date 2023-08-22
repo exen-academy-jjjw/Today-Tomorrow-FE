@@ -24,11 +24,21 @@
         background: none;
         cursor: pointer;
         padding: 0;
+        color: rgb(135, 163, 174);
 
         #icon {
             font-size: 1.5rem;
+            color: rgb(135, 163, 174);
         }
-      }
+    }
+
+    .categoryButton.active {
+        color: black;
+
+        #icon {
+            color: black;
+        }
+    }
       
 }
 
