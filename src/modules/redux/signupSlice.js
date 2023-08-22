@@ -17,6 +17,10 @@ const initialState = {
           window.alert("중복된 아이디입니다.");
           payload.navigate('/member/signup');
           return;
+        } else if(data.data === "nickname 400") {
+          window.alert("중복된 닉네임입니다.");
+          payload.navigate('/member/signup');
+          return;
         }
         window.alert("회원가입 성공");
         payload.navigate('/member/login');
