@@ -144,6 +144,10 @@ const CategoryListPage = () => {
       <div className="pageBg">
         <Header />
         <div className="categoryBox">
+          <button onClick={handleAllPostsClick} className={`categoryButton ${!params.category ? "active" : ""}`}>
+            <MdOutlineLibraryAdd id="icon" />
+            <span>All</span>
+          </button>
           <button
             onClick={() => handleCategoryClick("travel")}
             className={`categoryButton ${params.category === "travel" ? "active" : ""}`}
@@ -171,10 +175,6 @@ const CategoryListPage = () => {
           >
             <MdMoreHoriz id="icon" />
             <span>etc</span>
-          </button>
-          <button onClick={handleAllPostsClick} className={`categoryButton ${!params.category ? "active" : ""}`}>
-            <MdOutlineLibraryAdd id="icon" />
-            <span>All</span>
           </button>
           <button onClick={() => handleSharePostsClick()} className={`categoryButton ${params.category === "share" ? "active" : ""}`}>
               <MdGroupAdd id="icon" />
