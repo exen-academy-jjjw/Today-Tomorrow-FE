@@ -106,6 +106,10 @@ const ListPage = () => {
       <div className="pageBg">
         <Header />
         <div className="categoryBox">
+            <button onClick={() => handleAllPostsClick()} className="categoryButton active">
+              <MdOutlineLibraryAdd id="icon" />
+              <span>All</span>
+            </button>
             <button onClick={() => handleCategoryClick("travel")} className="categoryButton">
               <MdFlightTakeoff id="icon"/>
               <span>travel</span>
@@ -121,10 +125,6 @@ const ListPage = () => {
             <button onClick={() => handleCategoryClick("etc")} className="categoryButton">
               <MdMoreHoriz id="icon" />
               <span>etc</span>
-            </button>
-            <button onClick={() => handleAllPostsClick()} className="categoryButton active">
-              <MdOutlineLibraryAdd id="icon" />
-              <span>All</span>
             </button>
             <button onClick={() => handleSharePostsClick()} className="categoryButton">
               <MdGroupAdd id="icon" />
