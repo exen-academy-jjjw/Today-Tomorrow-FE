@@ -76,23 +76,23 @@ const PostDetailPage = () => {
       <div className="pageBg">
         <Header />
         <div className="pageBox">
-          <div className="pageTop">
-            {data.completion === "0" ? (
-              <MdCheckBoxOutlineBlank id="icon" size={24} onClick={handleCheckboxClick} />
-            ) : (
-              <MdCheckBox id="icon" size={24} onClick={handleCheckboxClick} />
-            )}
-            <div className="updateAndDeleteBtn">
-              {nickname === data.nickname ?
-                (
-                <>
-                <button onClick={handleUpdateClick}>update</button>
-                <button onClick={postDeleteHandler}>delete</button>
-                </>
-                ) : null
-              }
-            </div>
-          </div>
+          {nickname === data.nickname ?
+          (
+            <>
+              <div className="pageTop">
+                {data.completion === "0" ? (
+                  <MdCheckBoxOutlineBlank id="icon" size={24} onClick={handleCheckboxClick} />
+                ) : (
+                  <MdCheckBox id="icon" size={24} onClick={handleCheckboxClick} />
+                )}
+                <div className="updateAndDeleteBtn">
+                  <button onClick={handleUpdateClick}>update</button>
+                    <button onClick={postDeleteHandler}>delete</button>
+                </div>
+              </div>
+            </>
+          ) : null
+          }
           <div className="titleAndContent">
             <div className="titlaAndAuthor">
               <h3>{data.title}</h3>
