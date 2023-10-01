@@ -3,6 +3,7 @@ import "./css/commentpageStyle.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createReply, detailComment, updateComment, deleteComment } from "../../modules/redux/commentSlice";
+import { fetchPostDetails} from "../../modules/redux/postSlice.js";
 
 import CommentUpdate from "./CommentUpdate";
 import { BiConversation, BiCommentDots, BiEditAlt, BiTrash } from "react-icons/bi";
@@ -12,6 +13,7 @@ function CommentDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { postId, commentId } = useParams();
+  const [ postNickname, setPostNickname ] = useState();
   const nickname = getCookie("nickname");
 
 
@@ -24,9 +26,13 @@ function CommentDetail() {
       const response = await dispatch(detailComment(postId));;
       setData(response.payload);
       setParentId(response.payload.data);
+
+      const resPost = await dispatch(fetchPostDetails(postId));
+      const postNick = resPost.payload.nickname;
+      setPostNickname(postNick);
     }
     detailData();
-  }, [dispatch, postId]);
+  }, [dispatch, postId, postNickname]);
 
   // 댓글 삭제 처리
   const deleteHandler = async (e, commentId) => {
@@ -87,7 +93,7 @@ function CommentDetail() {
             {isEditing === comment.id ? (
               <>
                 <h5><strong>
-                  <BiCommentDots /> {comment.nickname}
+                  <BiCommentDots /> {comment.nickname === postNickname ? comment.nickname + " (작성자) " : comment.nickname}
                 </strong>{" "}:</h5>
                 <CommentUpdate
                   comment={comment}
@@ -98,7 +104,7 @@ function CommentDetail() {
             ) : (
               <>
                 <h5><strong>
-                  <BiCommentDots /> {comment.nickname}
+                  <BiCommentDots /> {comment.nickname === postNickname ? comment.nickname + " (작성자) " : comment.nickname}
                 </strong>{" "}: {comment.commentTxt}</h5>
                 {comment && comment.nickname === nickname && (
                   <div className="commentBtnBox">
@@ -120,7 +126,7 @@ function CommentDetail() {
               {isEditing === child.id ? (
                 <>
                   <h5><strong>
-                    <BiConversation /> {child.nickname}
+                    <BiConversation /> {child.nickname === postNickname ? child.nickname + " (작성자) " : child.nickname}
                   </strong>{" "}:</h5>
                   <CommentUpdate
                     comment={child}
@@ -131,7 +137,7 @@ function CommentDetail() {
               ):(
                 <>
                   <h5><strong>
-                    <BiConversation /> {child.nickname}
+                    <BiConversation /> {child.nickname === postNickname ? child.nickname + " (작성자) " : child.nickname}
                   </strong>{" "}: {child.commentTxt}</h5>
                   {child && child.nickname === nickname && (
                     <div className="commentBtnBox">
